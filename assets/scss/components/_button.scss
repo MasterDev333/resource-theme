@@ -1,3 +1,85 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  height: 40px;
+  appearance: none;
+  border: none;
+  border-radius: 60px;
+  min-width: 125px;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  @include typography(13.5px, 15px, 17px, 18.7px, 700, $f-text);
+  @include mq(tablet) {
+    padding: 15px;
+    min-width: 170px;
+    height: 50px;
+    &:hover {
+      i {
+        transform: translateX(10px);
+      }
+    }
+  }
+
+  i {
+    position: absolute;
+    display: inline-flex;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    transition: transform .3s ease-in-out;
+    will-change: transform;
+    @include mq(tablet) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+.btn-green {
+  background-color: rgba($green, 0.4);
+  i {
+    background-color: $green;
+  }
+}
+.btn-pink {
+  background-color: rgba($pink, 0.4);
+  i {
+    background-color: $pink;
+  }
+}
+.btn-purple {
+  background-color: rgba($purple, 0.4);
+  i {
+    background-color: $purple;
+  }
+}
+.btn-cyan {
+  background-color: rgba($cyan, 0.4);
+  i {
+    background-color: $cyan;
+  }
+}
+.btn-yellow {
+  background-color: rgba($yellow, 0.4);
+  i {
+    background-color: $yellow;
+  }
+}
+.btn-blue {
+  background-color: rgba($dark-blue, 0.4);
+  i {
+    color: var(--color-green);
+    background-color: $dark-blue;
+  }
+}

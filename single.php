@@ -9,7 +9,7 @@
 			?>
 
 			<?php
-			get_template_part( 'templates/content', 'post' );
+			get_template_part( 'templates/content', 'modules' );
 			?>
 
 	<?php endwhile; ?>

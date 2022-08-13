@@ -1,0 +1,14 @@
+.client-upload {
+  padding: 20px 0;
+  background-color: $green;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .file-upload {
+    input[type=file] {
+      display: none;
+    }
+  }
+}

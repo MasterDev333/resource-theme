@@ -72,9 +72,6 @@ add_filter( 'widget_text', 'do_shortcode' );
 // add_filter( 'the_content', 'wpautop' , 99);
 // add_filter( 'the_content', 'shortcode_unautop',100 );
 
-// Image Sizes
-add_image_size( 'slide-image', 1209, 665, true );
-
 // show_admin_bar(false);
 // define( 'WPCF7_AUTOP', false );
 

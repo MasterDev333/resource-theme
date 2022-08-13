@@ -33,6 +33,7 @@
 		<exclude name="Squiz.PHP.CommentedOutCode.Found"/>
 		<exclude name="WordPress.PHP.StrictComparisons.LooseComparison"/>
 		<exclude name="WordPress.PHP.DontExtract.extract_extract"/>
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
 		<exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
 		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>

@@ -7,7 +7,7 @@
 <?php $ww = isset( $w ) && ! empty( $w ) ? $w : false; ?>
 <?php $wclass = isset( $wc ) && ! empty( $wc ) ? $wc : ''; ?>
 
-<?php $icon = isset( $icon ) && ! empty( $icon ) ? $icon : ''; ?>
+<?php $disable_icon = isset( $di ) && ! empty( $di ) ? $di : false; ?>
 
 <?php
 if ( 'o' == $option ) {
@@ -34,11 +34,9 @@ if ( 'o' == $option ) {
 	?>
 		<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
 			<?php echo esc_html( $link_title ); ?>
-			<?php if ( $icon && 'dark' === $icon ) : ?>
-				<img class="lazyload" data-src="<?php echo esc_url( get_template_directory_uri() . '/images/ico/ico-arrow-dark-right.svg' ); ?>" alt="">
-			<?php elseif ( $icon ) : ?>
-				<img class="lazyload" data-src="<?php echo esc_url( get_template_directory_uri() . '/images/ico/ico-arrow-right.svg' ); ?>" alt="">
-			<?php endif ?>
+			<?php if ( ! $disable_icon ) : ?>
+			<i class="fas fa-chevron-right"></i>
+			<?php endif; ?>
 		</a>
 	<?php if ( $ww ) : ?>
 		</<?php echo esc_attr( $ww ); ?>>

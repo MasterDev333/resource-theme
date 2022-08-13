@@ -1,0 +1,38 @@
+.people {
+  text-align: center;
+  color: #fff;
+  &-bg {
+    &__left {
+      position: absolute;
+      top: 50%;
+      left: -60px;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
+    &__right {
+      position: absolute;
+      top: 50%;
+      right: -60px;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
+  }
+  .container {
+    --max-width: 620px;
+  }
+  &-heading {
+    margin-bottom: 30px;
+  }
+  &-copy {
+    margin-bottom: 30px;
+  }
+  &-join {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__heading {
+      margin-right: 30px;
+      margin-bottom: 0;
+    }
+  }
+}

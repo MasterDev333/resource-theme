@@ -28,7 +28,10 @@ function am_comments( $comment, $args, $depth ) {
 		if ( 0 != $args['avatar_size'] ) {
 			echo get_avatar( $comment, $args['avatar_size'] );}
 		?>
-		<?php printf( esc_html__( '<cite class="fn">%s</cite> <span class="says">says:</span>', 'am' ), get_comment_author_link() ); ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf( __( '<cite class="fn">%s</cite> <span class="says">says:</span>', 'am' ), get_comment_author_link() );
+		?>
 		</div>
 	<?php if ( '0' == $comment->comment_approved ) : ?>
 		<em class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'am' ); ?></em>
@@ -130,7 +133,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 
 		// Add a page number if necessary.
 		if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
-			$title .= " $sep " . sprintf( esc_html__( 'Page %s', 'wfc' ), max( $paged, $page ) );
+			$title .= " $sep " . sprintf( esc_html__( 'Page %s', 'am' ), max( $paged, $page ) );
 		}
 
 		return $title;
@@ -141,11 +144,12 @@ endif;
 /**
  * Filter for get_the_excerpt
  *
- * @param string $more excerpt more text
+ * @param string $more excerpt - more text
  * @return '...'
  */
 function am_excerpt_more( $more ) {
-	return '...';
+	$more = '...';
+	return $more;
 }
 
 /**
@@ -208,22 +212,18 @@ function am_add_javascript() {
 	if ( ! is_admin() ) {
 		// external Javascript
 		$am_links = array(
-			'https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js',
-			'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
-			'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js',
-			'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js',
-			'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js',
 			'https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js',
 		);
 		foreach ( $am_links as $am_link ) {
+			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
 			wp_enqueue_script( 'am_' . sanitize_title( $am_link ), $am_link, array( 'jquery' ), '', false );
 		}
 		$am_files = array(
-			'/assets/js/custom.daterangepicker.js',
+			'/assets/js/libs.min.js',
 			'/assets/js/main.js',
 		); // example: array('script1', 'script2');
 		foreach ( $am_files as $am_file ) {
-			wp_enqueue_script( 'am_' . sanitize_title( $am_file ), get_theme_file_uri( $am_file ), array( 'jquery' ), filemtime( $am_file ), true );
+			wp_enqueue_script( 'am_' . sanitize_title( $am_file ), get_theme_file_uri( $am_file ), array( 'jquery' ), filemtime( get_theme_file_path( $am_file ) ), true );
 		}
 	}
 }
@@ -234,20 +234,16 @@ function am_add_javascript() {
 function am_add_css() {
 	// Add external CSS urls here
 	$am_links = array(
-		'https://use.typekit.net/oox3cul.css',
-		'https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css',
-		'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css',
-		'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css',
-		'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css',
+		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css',
 	);
 	foreach ( $am_links as $am_link ) {
-		wp_enqueue_style( 'am_' . sanitize_title( $am_link ), $am_link, array() );
+		// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_enqueue_style( 'am_' . sanitize_title( $am_link ), $am_link );
 	}
 
 	// Add all internal CSS here
 	$am_files = array(
-		'/assets/css/daterangepicker.min.css',
-		'/assets/css/style.css',
+		'/assets/css/style.min.css',
 		'style.css',
 	); // example: array('style1', 'style2');
 	foreach ( $am_files as $am_file ) {

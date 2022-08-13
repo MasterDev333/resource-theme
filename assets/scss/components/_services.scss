@@ -1,0 +1,65 @@
+.service {
+  &-banner {
+    color: #fff;
+    text-align: center;
+    &__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &__heading {
+      margin-bottom: 0;
+    }
+  }
+  &-content {
+    text-align: center;
+    color: #fff;
+  }
+  &-copy {
+    margin: 0 auto 40px;
+    @include mq(tablet) {
+      max-width: 750px;
+    } 
+  }
+  &-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-gap: 20px;
+    @include mq(tablet) {
+      margin-bottom: 50px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  &-item {
+    position: relative;
+    img {
+      display: block;
+      width: 100%;
+    }
+    &__link {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      color: var(--text-color);
+      text-align: left;
+      transform: translate(-50%, -50%);
+      @include typography(20px, 28px, 38px, 54px, 700, $f-text);
+    }
+    &:nth-child(1) {
+      --text-color: var(--color-cyan);
+    }
+    &:nth-child(2) {
+      --text-color: var(--color-pink);
+    }
+    &:nth-child(3) {
+      --text-color: var(--color-yellow);
+    }
+    &:nth-child(4) {
+      --text-color: var(--color-purple);
+    }
+  }
+}

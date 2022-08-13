@@ -1,0 +1,19 @@
+.content-image {
+  &__left {
+    @include mq(tablet) {
+      flex: 0 0 400px;
+    }
+  }
+  &__right {
+
+  }
+  &__inner {
+    @include mq(tablet) {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__copy {
+    margin-bottom: 30px;
+  }
+}

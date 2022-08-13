@@ -161,9 +161,7 @@
   $desktop-lineheight,
   $font-weight: 400,
   $font-family: $f-heading,
-  $color: $heading_color
 ) {
-  color: $color;
   font-size: fs($mobile-font-size, $desktop-font-size);
   font-family: $font-family;
   font-weight: $font-weight;

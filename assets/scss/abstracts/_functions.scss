@@ -34,7 +34,15 @@
 /// @author Axe
 /// @param {String} $px-vw - pixel
 /// @param {String} $base-vw - default screensize
-@function vw($px-vw, $base-vw: 1440px) {
+@function vw($px-vw, $base-vw: 1400px) {
+  @return ($px-vw * 100vw) / $base-vw;
+}
+
+/// Returns svw from pixel
+/// @author Axe
+/// @param {String} $px-vw - pixel
+/// @param {String} $base-vw - default screensize
+@function svw($px-vw, $base-vw: 360px) {
   @return ($px-vw * 100vw) / $base-vw;
 }
 

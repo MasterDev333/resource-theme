@@ -1,4 +1,36 @@
 /**
  * Basic typography style for copy text
  */
-
+h1,
+.h1 {
+    @include typography(58px, 52px, 85px, 75px, 700);
+    letter-spacing: -0.02em
+}
+h2,
+.h2 {
+    @include typography(36px, 32px, 60px, 52px, 700);
+    letter-spacing: -0.02em;
+}
+h3,
+.h3 {
+    @include typography(15px, 18px, 32px, 32px, 600);
+    letter-spacing: -0.01em;
+}
+h4,
+.h4 {
+    @include typography(15px, 18px, 15px, 14px, 700);
+    letter-spacing: -0.02em;
+}
+p,
+.text-large {
+    @include typography(18px, 27px, 26px, 39px, 400, $f-text);
+    letter-spacing: -0.01em;
+}
+.text-medium {
+    font: 400 18px/27px $f-text;
+    letter-spacing: -0.01em;
+}
+.text-small {
+    font: 400 14px/21px $f-text;
+    letter-spacing: -0.01em;
+}

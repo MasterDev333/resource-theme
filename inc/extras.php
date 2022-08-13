@@ -20,6 +20,8 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 
 			$this->add_shortcodes();
 
+			$this->add_image_sizes();
+
 			// Register options page for ACF field
 			if ( function_exists( 'acf_add_options_page' ) ) {
 				acf_add_options_page(
@@ -33,16 +35,6 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 				);
 			}
 
-			// Disable for post types
-			// add_filter('use_block_editor_for_post_type', '__return_false', 10);
-			// add_action('init', 'my_remove_editor_from_post_type');
-			// function my_remove_editor_from_post_type() {
-			// remove_post_type_support( 'page', 'editor' );
-			// }
-
-			// Disable WordPress Admin Bar for all users
-			// add_filter( 'show_admin_bar', '__return_false' );
-
 			add_post_type_support( 'page', 'excerpt' );
 		}
 
@@ -50,20 +42,31 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		 * Add Filters
 		 */
 		public function add_filters() {
-			add_filter( 'body_class', $this->body_class );
-			add_filter( 'mime_types', $this->mime_types );
-			add_filter( 'acf/settings/save_json', $this->acf_save_json );
-			add_filter( 'acf/settings/load_json', $this->acf_load_json );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+			add_filter( 'mime_types', array( $this, 'mime_types' ) );
+			// Disable for post types
+			// add_filter('use_block_editor_for_post_type', '__return_false', 10);
+
+			// If ACF is installed load acf fields from local json
+			if ( ! class_exists( 'ACF' ) ) {
+				add_filter( 'acf/settings/save_json', array( $this, 'acf_save_json' ) );
+				add_filter( 'acf/settings/load_json', array( $this, 'acf_load_json' ) );
+			}
 		}
 
 		/**
 		 * Add actions
 		 */
 		public function add_actions() {
-			add_action( 'wp_head', $this->add_ajax_url );
-			add_action( 'init', $this->add_categories_to_pages );
-			add_action( 'acf/init', $this->acf_init );
-			add_action( 'login_enqueue_scripts', $this->login_enqueue_scripts );
+			add_action( 'wp_head', array( $this, 'add_ajax_url' ) );
+			add_action( 'init', array( $this, 'add_categories_to_pages' ) );
+			add_action( 'init', array( $this, 'remove_editor_from_post_type' ) );
+			add_action( 'init', array( $this, 'add_category_taxonomy_to_custom_post' ) );
+			add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue_scripts' ) );
+			// If ACF is installed load acf fields from local json
+			if ( ! class_exists( 'ACF' ) ) {
+				add_action( 'acf/init', array( $this, 'acf_init' ) );
+			}
 		}
 
 		/**
@@ -71,6 +74,15 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		 */
 		public function add_shortcodes() {
 			add_shortcode( 'cta_link', $this->cta_link );
+		}
+
+		/**
+		 * Add image sizes for the theme
+		 */
+		public function add_image_sizes() {
+			// Image Sizes
+			add_image_size( 'sector-grid', 350, 200, true );
+			add_image_size( 'work-grid', 465, 225, true );
 		}
 
 		/**
@@ -91,10 +103,12 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			}
 
 			// Add acf custom body class
-			$body_class = get_field( 'body_class', get_queried_object_id() );
-			if ( $body_class ) {
-				$body_class = esc_attr( trim( $body_class ) );
-				$classes[]  = $body_class;
+			if ( ! class_exists( 'ACF' ) ) {
+				$body_class = get_field( 'body_class', get_queried_object_id() );
+				if ( $body_class ) {
+					$body_class = esc_attr( trim( $body_class ) );
+					$classes[]  = $body_class;
+				}
 			}
 			return $classes;
 		}
@@ -171,7 +185,7 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		 * Add AJAX URL in <head></head>
 		 */
 		public function add_ajax_url() {
-			$url = parse_url( home_url() );
+			$url = wp_parse_url( home_url() );
 			if ( 'https' === $url['scheme'] ) {
 				$protocol = 'https';
 			} else {
@@ -218,66 +232,77 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		}
 
 		/**
-		 * Like get_template_part() put lets you pass args to the template file
-		 * Args are available in the tempalte as $template_args array
-		 *
-		 * @param string $file template file url
-		 * @param mixed  $template_args style argument list
-		 * @param mixed  $cache_args cache args
-		 *  https://wordpress.stackexchange.com/questions/176804/passing-a-variable-to-get-template-part
+		 * Remove default editor from post type
 		 */
-		public function get_template_part_args( $file, $template_args = array(), $cache_args = array() ) {
-			$template_args = wp_parse_args( $template_args );
-			$cache_args    = wp_parse_args( $cache_args );
-			if ( $cache_args ) {
-				foreach ( $template_args as $key => $value ) {
-					if ( is_scalar( $value ) || is_array( $value ) ) {
-						$cache_args[ $key ] = $value;
-					} elseif ( is_object( $value ) && method_exists( $value, 'get_id' ) ) {
-						$cache_args[ $key ] = call_user_method( 'get_id', $value );
-					}
-				}
-				$cache = wp_cache_get( $file, serialize( $cache_args ) );
-				if ( false !== $cache ) {
-					if ( ! empty( $template_args['return'] ) ) {
-						return $cache;
-					}
-					echo $cache;
-					return;
-				}
-			}
-			$file_handle = $file;
-			do_action( 'start_operation', 'hm_template_part::' . $file_handle );
-			if ( file_exists( get_stylesheet_directory() . '/' . $file . '.php' ) ) {
-				$file = get_stylesheet_directory() . '/' . $file . '.php';
-			} elseif ( file_exists( get_template_directory() . '/' . $file . '.php' ) ) {
-				$file = get_template_directory() . '/' . $file . '.php';
-			}
-			ob_start();
-			$return = require $file;
-			$data   = ob_get_clean();
-			do_action( 'end_operation', 'hm_template_part::' . $file_handle );
-			if ( $cache_args ) {
-				wp_cache_set( $file, $data, serialize( $cache_args ), 3600 );
-			}
-			if ( ! empty( $template_args['return'] ) ) {
-				if ( false === $return ) {
-					return false;
-				} else {
-					return $data;
-				}
-			}
-			echo esc_html( $data );
+		public function remove_editor_from_post_type() {
+			remove_post_type_support( 'page', 'editor' );
 		}
 
+		/**
+		 * Use default category with CPT
+		 */
+		public function add_category_taxonomy_to_custom_post() {
+			register_taxonomy_for_object_type( 'category', 'sector' );
+			register_taxonomy_for_object_type( 'category', 'work' );
+		}
 	}
 
 	$extra = new Theme_Extra();
 	$extra->init();
 }
 
-
-
-
-
-
+/**
+ * Like get_template_part() put lets you pass args to the template file
+ * Args are available in the tempalte as $template_args array
+ *
+ * @param string $file template file url
+ * @param mixed  $template_args style argument list
+ * @param mixed  $cache_args cache args
+ *  https://wordpress.stackexchange.com/questions/176804/passing-a-variable-to-get-template-part
+ */
+function get_template_part_args( $file, $template_args = array(), $cache_args = array() ) {
+	$template_args = wp_parse_args( $template_args );
+	$cache_args    = wp_parse_args( $cache_args );
+	if ( $cache_args ) {
+		foreach ( $template_args as $key => $value ) {
+			if ( is_scalar( $value ) || is_array( $value ) ) {
+				$cache_args[ $key ] = $value;
+			} elseif ( is_object( $value ) && method_exists( $value, 'get_id' ) ) {
+				$cache_args[ $key ] = call_user_func( 'get_id', $value );
+			}
+		}
+		// phpcs:disabled WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$cache = wp_cache_get( $file, serialize( $cache_args ) );
+		if ( false !== $cache ) {
+			if ( ! empty( $template_args['return'] ) ) {
+				return $cache;
+			}
+			// phpcs:disabled WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $cache;
+			return;
+		}
+	}
+	$file_handle = $file;
+	do_action( 'start_operation', 'hm_template_part::' . $file_handle );
+	if ( file_exists( get_stylesheet_directory() . '/' . $file . '.php' ) ) {
+		$file = get_stylesheet_directory() . '/' . $file . '.php';
+	} elseif ( file_exists( get_template_directory() . '/' . $file . '.php' ) ) {
+		$file = get_template_directory() . '/' . $file . '.php';
+	}
+	ob_start();
+	$return = require $file;
+	$data   = ob_get_clean();
+	do_action( 'end_operation', 'hm_template_part::' . $file_handle );
+	if ( $cache_args ) {
+		// phpcs:disabled WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		wp_cache_set( $file, $data, serialize( $cache_args ), 3600 );
+	}
+	if ( ! empty( $template_args['return'] ) ) {
+		if ( false === $return ) {
+			return false;
+		} else {
+			return $data;
+		}
+	}
+	echo $data;
+}

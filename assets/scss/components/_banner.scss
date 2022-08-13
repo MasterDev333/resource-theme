@@ -1,0 +1,37 @@
+.banner {
+  &--home {
+    color: #fff;
+  }
+  &-inner {
+    @include when-inside('.banner--home') {
+      @include mq(tablet) {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-gap: 50px;
+        align-items: center;
+      }
+    }
+  }
+  &-image {
+    @include when-inside('.banner--home') {
+      position: relative;
+    }
+  }
+  &-heading {
+    @include when-inside('.banner--home') {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    h1 {
+      @include typography(50px, 50px, 130px, 130px, 700);
+    }
+  }
+  &-copy {
+    margin-bottom: 20px;
+    @include mq(tablet) {
+      margin-bottom: 50px;
+    }
+  }
+}
