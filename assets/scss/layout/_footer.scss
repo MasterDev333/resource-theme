@@ -62,6 +62,13 @@
     &__contact {
       color: $green;
     }
+    &__location {
+      br {
+        @include mq(tablet, max) {
+          display: none;
+        }
+      }
+    }
     a {
       color: #fff;
       &:hover {

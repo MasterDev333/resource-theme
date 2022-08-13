@@ -1,5 +1,10 @@
 .content-image {
   &__left {
+    @include when-inside('.content-image--default') {
+      @include mq(tablet, max) {
+        text-align: center;
+      }
+    }
     @include mq(tablet) {
       flex: 0 0 400px;
     }
@@ -11,9 +16,43 @@
     @include mq(tablet) {
       display: flex;
       align-items: center;
+      @include when-inside('.content-image--inline') {
+        position: relative;
+        align-items: flex-start;
+      }
+    }
+  }
+  &__heading {
+    @include when-inside('.content-image--inline') {
+      @include mq(tablet, max) {
+        margin-bottom: 30px; 
+      }
+      @include mq(tablet) {
+        max-width: 150px;
+      }
     }
   }
   &__copy {
-    margin-bottom: 30px;
+    @include when-inside('.content-image--inline') {
+      position: relative;
+      z-index: 1;
+      @include mq(tablet) {
+        width: vw(650px);
+        max-width: 650px;
+      }
+    }
+    p {
+      margin-bottom: 30px;
+      @include when-inside('.content-image--inline') {
+        @include typography(24px, 24px, 58px, 60px, 700);
+      }
+    }
+  }
+  &__image {
+    @include mq(tablet) {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 }

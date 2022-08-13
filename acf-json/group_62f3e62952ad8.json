@@ -541,9 +541,57 @@
                             "mime_types": ""
                         },
                         {
+                            "key": "field_62f756ea0a200",
+                            "label": "Left Image Mobile",
+                            "name": "left_image_mobile",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
+                        },
+                        {
                             "key": "field_62f3ef228458f",
                             "label": "Right Image",
                             "name": "right_image",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
+                        },
+                        {
+                            "key": "field_62f756f40a201",
+                            "label": "Right Image Mobile",
+                            "name": "right_image_mobile",
                             "type": "image",
                             "instructions": "",
                             "required": 0,
@@ -1048,5 +1096,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1660352404
+    "modified": 1660376839
 }

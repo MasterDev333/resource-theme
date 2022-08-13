@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 // eslint-disable-next-line func-names
-(function ($) {
+(function($) {
   const helper = {
     // custom helper function for debounce - how to work see https://codepen.io/Hyubert/pen/abZmXjm
     /**
@@ -13,12 +13,14 @@
      */
     debounce(func, timeout) {
       let timeoutID;
+      // eslint-disable-next-line no-param-reassign
       timeout = timeout || 200;
-      return function () {
+      return function() {
         const scope = this;
+        // eslint-disable-next-line prefer-rest-params
         const args = arguments;
         clearTimeout(timeoutID);
-        timeoutID = setTimeout(function () {
+        timeoutID = setTimeout(function() {
           func.apply(scope, Array.prototype.slice.call(args));
         }, timeout);
       };
@@ -36,6 +38,7 @@
             _cb(..._argCb);
           }
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.log(e);
         }
       }
@@ -93,7 +96,7 @@
     init() {
       this.plugins(); // Init all plugins
       this.bindEvents(); // Bind all events
-      this.initAnimations(); // Init all animations 
+      this.initAnimations(); // Init all animations
     },
 
     /**
@@ -108,7 +111,22 @@
      * Bind all events here
      *
      */
-    bindEvents() { },
+    bindEvents() {
+      const self = this;
+
+      self.smoothScrollLinks();
+      /** * Run on Document Ready ** */
+      $(document).on('ready', function() {
+        self.smoothScrollLinks();
+        self.scrollNextSection();
+      });
+      /** * Run on Window Load ** */
+      $(window).on('scroll', function() {
+        if ($(window).scrollTop() >= 50)
+          $('.header').addClass('header--sticky');
+        else $('.header').removeClass('header--sticky');
+      });
+    },
 
     /**
      * init scroll revealing animations function
@@ -119,6 +137,41 @@
       helper.viewportCheckerAnimate('.a-left', 'fadeInLeft');
       helper.viewportCheckerAnimate('.a-right', 'fadeInRight');
       helper.viewportCheckerAnimate('.a-op', 'fade');
+    },
+
+    /**
+     * Smooth Scroll link
+     */
+    smoothScrollLinks() {
+      $('a[href^="#"').on('click', function() {
+        const target = $(this).attr('href');
+        if (target !== '#' && $(target).length > 0) {
+          const offset = $(target).offset().top - $('header').outerHeight();
+          $('html, body').animate(
+            {
+              scrollTop: offset
+            },
+            500
+          );
+        }
+        return false;
+      });
+    },
+    /**
+     * Scroll to next section when click "scroll" button
+     *
+     */
+    scrollNextSection() {
+      $('.btn-next-section').on('click', function() {
+        const $parent = $(this).closest('section');
+        const $nextSection = $parent.next();
+        $('html, body').animate(
+          {
+            scrollTop: $nextSection.offset().top
+          },
+          500
+        );
+      });
     }
   };
 

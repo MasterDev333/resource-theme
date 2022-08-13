@@ -1,0 +1,26 @@
+.sectors {
+  color: #fff;
+  text-align: center;
+  &-heading {
+    margin-bottom: 30px;
+    @include mq(tablet) {
+      margin-bottom: 60px;
+    }
+  }
+  &-copy {
+    margin-bottom: 30px;
+    @include mq(tablet) {
+      margin-bottom: 60px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 760px;
+    }
+  }
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include mq(tablet) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}

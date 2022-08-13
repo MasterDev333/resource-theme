@@ -1,6 +1,7 @@
 .banner {
   &--home {
     color: #fff;
+    text-align: center;
   }
   &-inner {
     @include when-inside('.banner--home') {
@@ -15,6 +16,9 @@
   &-image {
     @include when-inside('.banner--home') {
       position: relative;
+      @include mq(tablet, max) {
+        margin-bottom: 30px;
+      }
     }
   }
   &-heading {

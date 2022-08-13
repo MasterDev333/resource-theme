@@ -151,71 +151,97 @@
 				</section>
 			<?php elseif ( 'people' == get_row_layout() ) : ?>
 				<section class="people" id="<?php echo esc_attr( $id ); ?>">
-					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'left_image',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__left',
-						)
-					);
-					?>
-					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'right_image',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__right',
-						)
-					);
-					?>
-					<div class="container">
+					<div class="container-fluid">
 						<?php
 						get_template_part_args(
-							'templates/content-modules-text',
+							'templates/content-modules-image',
 							array(
-								'v'  => 'heading',
-								't'  => 'h2',
-								'tc' => 'people-heading a-up',
+								'v'     => 'left_image',
+								'is'    => false,
+								'is_2x' => false,
+								'v2x'   => false,
+								'c'     => 'people-bg__left d-md-only',
 							)
 						);
 						?>
 						<?php
 						get_template_part_args(
-							'templates/content-modules-text',
+							'templates/content-modules-image',
 							array(
-								'v'  => 'copy',
-								't'  => 'div',
-								'tc' => 'people-copy a-up a-delay-1',
+								'v'     => 'left_image_mobile',
+								'is'    => false,
+								'is_2x' => false,
+								'v2x'   => false,
+								'c'     => 'people-bg__left d-sm-only',
 							)
 						);
 						?>
-						<div class="people-join a-up a-delay-2">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-image',
+							array(
+								'v'     => 'right_image',
+								'is'    => false,
+								'is_2x' => false,
+								'v2x'   => false,
+								'c'     => 'people-bg__right d-md-only',
+							)
+						);
+						?>
+						<?php
+						get_template_part_args(
+							'templates/content-modules-image',
+							array(
+								'v'     => 'right_image_mobile',
+								'is'    => false,
+								'is_2x' => false,
+								'v2x'   => false,
+								'c'     => 'people-bg__right d-sm-only',
+							)
+						);
+						?>
+						<div class="container">
 							<?php
 							get_template_part_args(
 								'templates/content-modules-text',
 								array(
-									'v'  => 'sub_heading',
+									'v'  => 'heading',
 									't'  => 'h2',
-									'tc' => 'people-join__heading',
+									'tc' => 'people-heading a-up',
 								)
 							);
 							?>
 							<?php
 							get_template_part_args(
-								'templates/content-modules-cta',
+								'templates/content-modules-text',
 								array(
-									'v' => 'cta',
-									'c' => 'btn btn-pink',
+									'v'  => 'copy',
+									't'  => 'div',
+									'tc' => 'people-copy a-up a-delay-1',
 								)
 							);
 							?>
+							<div class="people-join a-up a-delay-2">
+								<?php
+								get_template_part_args(
+									'templates/content-modules-text',
+									array(
+										'v'  => 'sub_heading',
+										't'  => 'h2',
+										'tc' => 'people-join__heading',
+									)
+								);
+								?>
+								<?php
+								get_template_part_args(
+									'templates/content-modules-cta',
+									array(
+										'v' => 'cta',
+										'c' => 'btn btn-pink',
+									)
+								);
+								?>
+							</div>
 						</div>
 					</div>
 					<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
@@ -288,18 +314,61 @@
 								)
 							);
 							?>
-                            <?php
-                            get_template_part_args(
-                                'templates/content-modules-image',
-                                array(
-                                    'v'     => 'image',
-                                    'is'    => false,
-                                    'v2x'   => false,
-                                    'is_2x' => false,
-                                    'c'     => 'a-up',
-                                )
-                            );
-                            ?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-image',
+								array(
+									'v'     => 'image',
+									'is'    => false,
+									'v2x'   => false,
+									'is_2x' => false,
+									'c'     => 'content-image__image a-up',
+								)
+							);
+							?>
+						<?php endif; ?>
+					</div>
+					<?php if ( 'default' == $style ) : ?>
+						<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
+					<?php endif; ?>
+				</section>
+				<?php
+			elseif ( 'sectors' == get_row_layout() ) :
+				$sectors = get_sub_field( 'sectors' );
+				?>
+				<section class="sectors" id="<?php echo esc_attr( $id ); ?>">
+					<div class="container-fluid">
+						<div class="container">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'heading',
+									't'  => 'h2',
+									'tc' => 'sectors-heading a-up',
+								)
+							);
+							?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'copy',
+									't'  => 'p',
+									'tc' => 'sectors-copy text-medium a-up a-delay-1',
+								)
+							);
+							?>
+						</div>
+						<?php if ( $sectors ) : ?>
+							<div class="sectors-grid">
+								<?php
+								foreach ( $sectors as $post ) :
+									setup_postdata( $post );
+									get_template_part( 'templates/loop', 'sector' );
+								endforeach;
+								?>
+							</div>
 						<?php endif; ?>
 					</div>
 					<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
