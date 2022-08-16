@@ -79,7 +79,16 @@
 .btn-blue {
   background-color: rgba($dark-blue, 0.4);
   i {
-    color: var(--color-green);
+    color: $green;
     background-color: $dark-blue;
+  }
+}
+
+.btn-white {
+  background-color: rgba(#fff, 0.4);
+  color: $text-color;
+  i {
+    color: $text-color;
+    background-color: #fff;
   }
 }

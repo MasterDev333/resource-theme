@@ -1,0 +1,110 @@
+.resource-info {
+  .container {
+    @include mq(tablet) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__content {
+    @include mq(tablet) {
+      max-width: 520px;
+      z-index: 1;
+    }
+  }
+  &__image {
+    display: none;
+    @include mq(tablet) {
+      margin-right: calc(var(--gutter) * -1);
+      margin-top: 80px;
+      display: block;
+      width: 435px;
+      height: 435px;
+    }
+  }
+  &__heading {
+    margin-bottom: 20px;
+  }
+  &__copy {
+    p {
+      @extend .text-medium;
+    }
+    blockquote {
+      padding: 20px;
+      width: 190px;
+      height: 190px;
+      z-index: 1;
+      @include mq(tablet) {
+        position: absolute;
+        padding: 30px;
+      }
+      h4 {
+        font-size: 15px;
+        line-height: 18px;
+      }
+      h3 {
+        color: #fff;
+      }
+      &.bg-cyan {
+        @include mq(tablet) {
+          top: -370px;
+          left: 628px;
+          width: 360px;
+          height: 360px;
+        }
+        h3 {
+          @include typography(24px, 24px, 52px, 46px, 700);
+        }
+      }
+      &.bg-purple {
+        @include mq(tablet) {
+          padding: 20px;
+          top: 40px;
+          left: 528px;
+          width: 260px;
+          height: 260px;
+        }
+        h3 {
+          @include typography(24px, 24px, 36px, 32px, 700);
+        }
+      }
+      &.bg-pink {
+        @include mq(tablet) {
+          top: 350px;
+          left: 670px;
+          width: 360px;
+          height: 360px;
+        }
+        h3 {
+          @include typography(24px, 24px, 54px, 48px, 700);
+        }
+      }
+    }
+  }
+  &__testimonial {
+    text-align: right;
+    margin-top: 50px;
+    &__content {
+      text-align: left;
+      @include typography(36px, 32px, 55px, 48px, 700);  
+    }
+    &__info {
+      display: inline-flex;
+      align-items: center;
+    }
+    &__name,
+    &__role {
+      text-align: left;
+    }
+    &__name {
+      font-weight: 700;
+    }
+    &__avatar {
+      display: block;
+      margin-left: 20px;
+      width: 137px;
+      height: 137px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+}

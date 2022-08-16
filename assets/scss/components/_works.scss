@@ -1,9 +1,13 @@
 .work-grid {
+  padding: 100px 0 0;
   color: #fff;
   .container {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+  }
+  .section-heading {
+    margin-right: 20px;
   }
 }
 .works {

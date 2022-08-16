@@ -4,7 +4,7 @@
 @import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins', 'abstracts/root';
 
 // 2. Vendors
-@import 'vendor/normalize', 'vendor/wp-core';
+@import 'vendor/normalize', 'vendor/wp-core', 'vendor/slick';
 
 // 3. Base stuff
 @import 'base/animation', 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
@@ -15,11 +15,19 @@
 // 5. Components
 @import 'components/button',
         'components/banner',
+        'components/circle-content',
         'components/content-image',
-        'components/works',
-        'components/work-tile',
-        'components/upload',
-        'components/people',
-        'components/sectors',
+        'components/icons-grid',
+        'components/image-slider',
         'components/loop-sector',
-        'components/services';
+        'components/people',
+        'components/resource-info',
+        'components/sectors',
+        'components/section-cta',
+        'components/services',
+        'components/service-blocks',
+        'components/testimonial',
+        'components/upload',
+        'components/works',
+        'components/work-tile';
+        

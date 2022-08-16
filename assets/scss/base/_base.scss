@@ -12,6 +12,7 @@ html {
 
 body {
   max-width: 100%;
+  color: $text-color;
   overflow-x: hidden;
   background-color: var(--bg-color);
   @include custom-scrollbar(3px, $green);
@@ -62,14 +63,25 @@ h5 {
   margin-right: auto;
 }
 
-.fullpage-sections section {
+section {
   position: relative;
   padding: 100px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  &:not(.work-grid):not(.client-upload) {
+    @include when-inside('.home') {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include mq(tablet) {
+        height: 100vh;
+      }
+    }
+  }
+}
+
+.main {
+  padding-top: 50px;
   @include mq(tablet) {
-    height: 100vh;
+    padding-top: 110px;
   }
 }
 
@@ -98,4 +110,30 @@ h5 {
       transform: translateY(5px);
     }
   }
+}
+
+// Custom Background
+.bg-cyan {
+  background-color: $cyan;
+}
+.bg-yellow {
+  background-color: $yellow;
+}
+.bg-pink {
+  background-color: $pink;
+}
+.bg-purple {
+  background-color: $purple;
+}
+.bg-green {
+  background-color: $green;
+}
+.bg-grey {
+  background-color: $grey;
+}
+.bg-dark-blue {
+  background-color: $dark-blue;
+}
+.bg-white {
+  background-color: #fff;
 }

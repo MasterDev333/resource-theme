@@ -325,6 +325,7 @@ html.disable-scrolling {
   margin-bottom: auto;
 }
 
+// Custom Display
 .d-sm-only {
   @include mq(tablet) {
     display: none !important;
@@ -336,9 +337,34 @@ html.disable-scrolling {
   }
 }
 
+// Custom Text alignment
+.text-left {
+  text-align: left;
+}
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
+
+// text color
+.text-green {
+  color: $green;
+}
+.text-cyan {
+  color: $cyan;
+}
+.text-yellow {
+  color: $yellow;
+}
+.text-pink {
+  color: $pink;
+}
+.text-purple {
+  color: $purple;
+}
+
 .bg-stretch {
   img, 
   video {

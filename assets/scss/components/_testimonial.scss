@@ -1,0 +1,75 @@
+.testimonial {
+  color: #fff;
+  &-heading {
+    margin-bottom: 30px;
+    @include typography(24px, 24px, 36px, 50px, 700, $f-narrow);
+  }
+  &-inner {
+    @include mq(tablet) {
+      position: relative;
+      display: flex;
+    }
+    &__left {
+      @include mq(tablet) {
+        margin-right: 50px;
+        flex: 0 0 440px;
+        max-width: 440px;
+      }
+    }
+    &__right {
+      text-align: right;
+      @include mq(tablet, max) {
+        margin-top: 20px;
+      }
+    }
+  }
+  &-copy {
+    p {
+      margin-bottom: 1em;
+      @extend .text-medium;
+    }
+  }
+  &-content {
+    @include typography(27px, 27px, 40px, 40px, 700);
+    color: $green;
+    text-align: left;
+  }
+  &-info {
+    display: inline-flex;
+    margin-top: 20px;
+    margin-left: auto;
+    max-width: 330px;
+    align-items: center;
+    text-align: left;
+  }
+  &-avatar {
+    display: block;
+    margin-left: 20px;
+    flex-shrink: 0;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &-box {
+    padding: 20px;
+    background-color: $green;
+    color: $text-color;
+    width: 190px;
+    @include mq(tablet) {
+      position: absolute;
+      width: 260px;
+      left: 490px;
+      z-index: 1
+    }
+    &__subheading {
+      @include typography(8px, 10px, 10px, 10px, 700);
+    }
+    &__heading {
+      @include typography(72px, 72px, 98px, 100px, 700);
+    }
+    &__content {
+      @include typography(28px, 30px, 38px, 40px, 700);
+    }
+  }
+}

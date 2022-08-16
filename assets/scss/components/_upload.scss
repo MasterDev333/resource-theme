@@ -6,6 +6,9 @@
     align-items: center;
     justify-content: space-between;
   }
+  h3 {
+    color: $text-color;
+  }
   .file-upload {
     input[type=file] {
       display: none;

@@ -9,9 +9,6 @@
       flex: 0 0 400px;
     }
   }
-  &__right {
-
-  }
   &__inner {
     @include mq(tablet) {
       display: flex;
@@ -32,6 +29,9 @@
       }
     }
   }
+  &__title {
+    pointer-events: none;
+  }
   &__copy {
     @include when-inside('.content-image--inline') {
       position: relative;
@@ -50,9 +50,7 @@
   }
   &__image {
     @include mq(tablet) {
-      position: absolute;
-      top: 0;
-      right: 0;
+      margin-left: -130px;
     }
   }
 }

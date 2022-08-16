@@ -1,0 +1,62 @@
+.icons-grid {
+  @include mq(tablet, max) {
+    padding: 40px 0;
+  }
+  .container {
+    @include mq(desktop) {
+      display: flex;
+    }
+  }
+  &__heading {
+    margin-bottom: 35px;
+    @include mq(desktop) {
+      margin-bottom: 0;
+      margin-right: 40px;
+      flex: 0 0 325px;
+    }
+  }
+  &__items {
+    @include mq(tablet) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-gap: 25px 20px;
+    }
+  }
+  &__item {
+    @include mq(tablet, max) {
+      display: flex;
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+    &__image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $green;
+      border-radius: 50%;
+      @include mq(tablet, max) {
+        flex: 0 0 50px;
+        height: 50px;
+        margin-right: 20px;
+      } 
+      @include mq(tablet) {
+        margin-bottom: 25px;
+        width: 77px;
+        height: 77px;
+      }
+      img {
+        width: 28px;
+      }
+    }
+    &__content {
+      @include mq(tablet, max) {
+        margin-top: 10px;
+      }
+    }
+    &__title {
+      margin-bottom: 1em;
+      font-weight: 700;
+    }
+  }
+}

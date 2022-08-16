@@ -16,6 +16,9 @@
   }
   &--sticky {
     background-color: $dark-blue;
+    @include mq(tablet, max) {
+      top: 0 !important;
+    }
   }
   &-nav {
     display: flex;

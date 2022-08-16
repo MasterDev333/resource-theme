@@ -46,12 +46,6 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			add_filter( 'mime_types', array( $this, 'mime_types' ) );
 			// Disable for post types
 			// add_filter('use_block_editor_for_post_type', '__return_false', 10);
-
-			// If ACF is installed load acf fields from local json
-			if ( ! class_exists( 'ACF' ) ) {
-				add_filter( 'acf/settings/save_json', array( $this, 'acf_save_json' ) );
-				add_filter( 'acf/settings/load_json', array( $this, 'acf_load_json' ) );
-			}
 		}
 
 		/**
@@ -64,7 +58,7 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			add_action( 'init', array( $this, 'add_category_taxonomy_to_custom_post' ) );
 			add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue_scripts' ) );
 			// If ACF is installed load acf fields from local json
-			if ( ! class_exists( 'ACF' ) ) {
+			if ( class_exists( 'ACF' ) ) {
 				add_action( 'acf/init', array( $this, 'acf_init' ) );
 			}
 		}
@@ -103,12 +97,14 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			}
 
 			// Add acf custom body class
-			if ( ! class_exists( 'ACF' ) ) {
-				$body_class = get_field( 'body_class', get_queried_object_id() );
+			if ( class_exists( 'ACF' ) ) {
+				$body_class  = get_field( 'body_class', get_queried_object_id() );
+				$theme_class = get_field( 'color_theme', get_queried_object_id() );
 				if ( $body_class ) {
 					$body_class = esc_attr( trim( $body_class ) );
 					$classes[]  = $body_class;
 				}
+				$classes[] = 'theme--' . $theme_class;
 			}
 			return $classes;
 		}

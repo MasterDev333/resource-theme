@@ -42,7 +42,7 @@
     margin-bottom: 30px;
     p {
       @include mq(tablet, max) {
-        font-family: $f-text-alt;
+        font-family: $f-hairline;
       }
     }
   }
@@ -55,7 +55,7 @@
     &__heading {
       margin-bottom: 20px;
       @include mq(tablet, max) {
-        font-family: $f-text-alt;
+        font-family: $f-hairline;
       }
       @include mq(tablet) {
         margin-right: 30px;

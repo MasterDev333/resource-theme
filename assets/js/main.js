@@ -113,12 +113,14 @@
      */
     bindEvents() {
       const self = this;
-
-      self.smoothScrollLinks();
       /** * Run on Document Ready ** */
       $(document).on('ready', function() {
         self.smoothScrollLinks();
         self.scrollNextSection();
+
+        helper.isElementExist('.circle-content', self.circleContent);
+        helper.isElementExist('.image-carousel', self.initImageCarousel);
+        helper.isElementExist('.service-blocks', self.initServiceBlocks);
       });
       /** * Run on Window Load ** */
       $(window).on('scroll', function() {
@@ -172,6 +174,45 @@
           500
         );
       });
+    },
+    /**
+     * Circle Content
+     */
+    circleContent() {
+      $('.circle').on('click', function() {
+        const index = $(this).index();
+        if ($(this).hasClass('active')) return;
+        $('.circle-content__content.active').removeClass('active');
+        $(`.circle-content__content:nth-child(${index + 1})`).addClass(
+          'active'
+        );
+      });
+    },
+    /**
+     * Init image carousel
+     */
+    initImageCarousel() {
+      $('.image-carousel').slick({
+        arrows: true,
+        dots: false,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
+      });
+    },
+    /**
+     * Init service blocks mobile carousel
+     */
+    initServiceBlocks() {
+      const $slider = $('.service-blocks');
+      const options = {
+        arrows: false,
+        dots: false
+      };
+      helper.mobileSlider($slider, options);
     }
   };
 

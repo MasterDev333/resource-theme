@@ -1,7 +1,57 @@
 .banner {
+  color: #fff;
   &--home {
-    color: #fff;
     text-align: center;
+  }
+  &--video {
+    padding: 0;
+    .container-fluid {
+      position: relative;
+      height: 100%;
+    }
+  }
+  &--resource {
+    position: relative;
+    margin-top: -50px;
+    padding: 0;
+    height: 100%;
+    @include mq(tablet) {
+      margin-top: -110px;
+      height: 100vh;
+      max-height: 720px;
+    }
+    .container {
+      position: relative;
+      padding: 50px var(--gutter);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+      @include mq(tablet) {
+        padding: 100px var(--gutter);
+      }
+    }
+  }
+  &--single-resource {
+    .container {
+      @include mq(tablet) {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+      }
+      &::before {
+        position: absolute;
+        bottom: -95px;
+        left: 181px;
+        width: 0;
+        height: 130px;
+        border-left: 7px dotted var(--theme-color);
+        @include mq(tablet) {
+          content: '';
+        }
+      }
+    }
   }
   &-inner {
     @include when-inside('.banner--home') {
@@ -12,12 +62,42 @@
         align-items: center;
       }
     }
+    @include when-inside('.banner--video') {
+      height: 100%;
+    }
   }
   &-image {
     @include when-inside('.banner--home') {
       position: relative;
       @include mq(tablet, max) {
         margin-bottom: 30px;
+      }
+    }
+    @include when-inside('.banner--resource') {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include when-inside('.banner--single-resource') {
+      position: relative;
+      @include mq(tablet) {
+        margin-right: 60px;
+      }
+    }
+    &__bg {
+      @include when-inside('.banner--single-resource') {
+        display: none;
+        @include mq(tablet) {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          width: 380px;
+        }
       }
     }
   }
@@ -27,15 +107,130 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      h1 {
+        @include typography(50px, 50px, 130px, 130px, 700);
+      }
     }
-    h1 {
-      @include typography(50px, 50px, 130px, 130px, 700);
+    @include when-inside('.banner--video') {
+      margin-bottom: 20px;
+      @include typography(15px, 18px, 32px, 32px, 700, $f-narrow);
+      @include mq(tablet) {
+        margin-bottom: 40px;
+        color: #fff;
+      }
+      br {
+        @include mq(tablet, max) {
+          display: none;
+        }
+      }
+    }
+    @include when-inside('.banner--resource') {
+      margin-top: 90px;
+      @include typography(45px, 50px, 85px, 90px, 700, $f-narrow);
+      @include mq(tablet) {
+        margin-top: 60px;
+      }
+    }
+    @include when-inside('.banner--single-resource') {
+      position: relative;
+      color: var(--theme-color);
+      z-index: 1;
+      @include typography(45px, 40px, 96px, 134px, 700);
+      @include mq(tablet, max) {
+        margin-bottom: 30px;
+      }
     }
   }
   &-copy {
-    margin-bottom: 20px;
+    @include when-inside('.banner--home') {
+      margin-bottom: 20px;
+      @include mq(tablet) {
+        margin-bottom: 50px;
+      }
+    }
+    @include when-inside('.banner--video') {
+      max-width: 185px;
+      @include mq(tablet) {
+        max-width: 685px;
+      }
+      p {
+        @include typography(23px, 20px, 85px, 74px, 700);
+      }
+    }
+  }
+  &-logo {
+    @include mq(tablet, max) {
+      margin-top: 25px;
+    }
+    &__heading {
+      margin-top: 15px;
+    }
+  }
+  &-content {
+    @include when-inside('.banner--video') {
+      position: absolute;
+      padding-top: 20px;
+      top: 0;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+      @include mq(tablet) {
+        padding-top: 40px;
+      }
+    }
+    &__top {
+      display: flex;
+      @include mq(tablet, max) {
+        flex-direction: column-reverse;
+      }
+      @include mq(tablet) {
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+  &-solutions__img {
+    position: absolute;
+    top: 0;
+    left: var(--gutter);
     @include mq(tablet) {
-      margin-bottom: 50px;
+      left: auto;
+      right: calc((100vw - var(--max-width))/2);
+    }
+  }
+  &-testimonial {
+    display: grid;
+    grid-template-columns: auto 85px;
+    grid-gap: 15px;
+    align-items: center;
+    @include mq(tablet) {
+      grid-template-columns: 130px auto;
+    }
+    &__content {
+      @include typography(18px, 27px, 32px, 32px, 700, $f-narrow);
+      @include mq(tablet) {
+        grid-column: 1/3;
+      }
+    }
+    &__avatar {
+      grid-column: 2/3;
+      grid-row: 1/3;
+      @include mq(tablet) {
+        grid-column: 1/2;
+        grid-row: 2/3;
+      }
+      img {
+        display: block;
+        width: 85px;
+        height: 85px;
+        object-fit: cover;
+        border-radius: 50%;
+        background-color: var(--theme-color);
+        @include mq(tablet) {
+          width: 130px;
+          height: 130px;
+        }
+      }
     }
   }
 }

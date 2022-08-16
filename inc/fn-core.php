@@ -213,6 +213,7 @@ function am_add_javascript() {
 		// external Javascript
 		$am_links = array(
 			'https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js',
 		);
 		foreach ( $am_links as $am_link ) {
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
@@ -235,6 +236,8 @@ function am_add_css() {
 	// Add external CSS urls here
 	$am_links = array(
 		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css',
+		'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css',
+		'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css',
 	);
 	foreach ( $am_links as $am_link ) {
 		// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
