@@ -17,6 +17,9 @@
         position: relative;
         align-items: flex-start;
       }
+      @include when-inside('.content-image--default') {
+        justify-content: space-between;
+      }
     }
   }
   &__heading {
@@ -51,6 +54,7 @@
   &__image {
     @include mq(tablet) {
       margin-left: -130px;
+      max-width: 50%;
     }
   }
 }

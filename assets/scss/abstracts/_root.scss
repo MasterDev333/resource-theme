@@ -2,8 +2,8 @@
     --gutter: 25px;
     --max-width: 1200px;
 
-    --text-color: #354b58;
-    --bg-color: #354b58;
+    --text-color: #244a57;
+    --bg-color: #244a57;
 
     --color-cyan: #00ebeb;
     --color-yellow: #ffbf00;
@@ -12,16 +12,19 @@
     --color-green: #59ff96;
     --color-grey: #e1e4e1;
 }
-
+.theme--strategy,
 .theme--cyan {
     --theme-color: #00ebeb;
 }
+.theme--creative,
 .theme--pink {
     --theme-color: #ff00ff;
 }
+.theme--production,
 .theme--yellow {
     --theme-color: #ffbf00;
 }
+.theme--experience,
 .theme--purple {
     --theme-color: #7d63ff;
 }

@@ -3,13 +3,13 @@
 // -----------------------------------------------------------------------------
 .header {
   position: fixed;
-  padding: 10px 0;
   top: 0;
   left: 0;
   display: flex;
   width: 100%;
   justify-content: space-between;
   z-index: 100;
+  transition: background .3s ease-in-out;
   @include adminbar-offset;
   @include mq(tablet) {
     padding: 20px 0;
@@ -23,7 +23,7 @@
   &-nav {
     display: flex;
     align-items: center;
-    @include mq(tablet, max) {
+    @include mq(desktop, max) {
       justify-content: space-between;
     }
   }
@@ -34,42 +34,165 @@
       width: 180px;
     }
   }
+  &-mobile {
+    @include mq(desktop, max) {
+      position: absolute;
+      display: none;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      align-items: flex-end;
+      justify-content: space-between;
+      background-color: $dark-blue;
+    }
+    @include mq(desktop) {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+  }
   &-menu {
     list-style: none;
-    @include mq(tablet, max) {
-      position: absolute;
-      top: 0;
-      left: 100%;
+    @include mq(desktop, max) {
+      flex: 0 0 50%;
     }
-    @include mq(tablet) {
+    @include mq(desktop) {
       margin-left: auto;
       display: flex;
       align-items: center;
     }
     .menu-item {
-      @include mq(tablet) {
+      @include mq(desktop) {
         padding: 0 10px;
       }
       a {
-        font: 600 17px/18px $f-text;
-        color: #fff;
+        @include mq(desktop, max) {
+          display: block;
+          padding: 20px 10px;
+          background-color: rgba($green, 0.8);
+          color: $text-color;
+          font: 700 14px/15.4px $f-narrow;
+          border-bottom: 1px solid $dark-blue;
+        }
+        @include mq(desktop) {
+          font: 700 17px/18px $f-narrow;
+          color: #fff;
+        }
+      }
+    }
+    > .menu-item  {
+      &:hover {
+        > a::before {
+          background-color: rgba($green, 0.8);
+        }
+        .sub-menu {
+          @include element-show;
+        }
+      }
+      & > a {
+        position: relative;
+        @include mq(desktop) {
+          &::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            content: '';
+            width: calc(100% + 20px); 
+            height: 110px;
+            transform: translate(-50%, -50%);
+            transition: all .3s ease-in-out;
+            z-index: -1;
+          }
+        }
+      }
+      &.current-menu-item > a,
+      &.current-menu-ancestor > a {
+        @include mq(desktop) {
+          color: $green;
+        }
+      }
+      &.current-menu-ancestor {
+        > a {
+          position: relative;
+          &::after {
+            position: absolute;
+            right: 20px;
+            content: "\f054";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: var(--fa-display,inline-block);
+            font-style: normal;
+            font-variant: normal;
+            line-height: 1;
+            text-rendering: auto;
+            @include mq(desktop) {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+    .sub-menu {
+      position: absolute;
+      top: 0;
+      padding: 0;
+      list-style: none;
+      @include element-hidden;
+      @include mq(desktop, max) {
+        left: 50%;
+        width: 50%;
+      }
+      @include mq(desktop) {
+        top: 100%;
+        margin-left: -10px;
+      }
+      .menu-item {
+        padding: 0;
+        &.current-menu-item a {
+          background-color: $green;
+        }
+        a {
+          display: block;
+          padding: 20px 30px;
+          background-color: rgba($green, 0.8);
+          color: $text-color;
+          transition: background .3s ease-in-out;
+          @include mq(desktop, max) {
+            border-left: 1px solid $dark-blue;
+          }
+          &:hover {
+            background-color: $green;
+          }
+        }
       }
     }
   }
   &-ctas {
-    display: none;
-    @include mq(tablet) {
-      display: flex;
+    display: flex;
+    @include mq(desktop) {
       margin-left: 60px;
     }
   }
   .hamburger {
+    display: inline-flex;
+    margin-right: calc(var(--gutter) * -1);
+    width: 50px;
+    height: 50px;
     appearance: none;
+    align-items: center;
+    justify-content: center;
     border: none;
     background-color: transparent;
     color: #fff;
-    @include mq(tablet) {
+    cursor: pointer;
+    @include mq(desktop) {
       display: none;
+    }
+    &.active {
+      background-color: rgba($green, 0.8);
+      color: $text-color;
     }
   }
 }

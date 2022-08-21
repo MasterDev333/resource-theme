@@ -3,6 +3,7 @@
  * Content Modules
  */
 
+global $post;
 $color_theme = get_field( 'color_theme' );
 ?>
 <?php
@@ -200,6 +201,68 @@ if ( have_rows( 'modules' ) ) :
 							</div>
 						</div>
 					</div>
+				<?php elseif ( 'team' == $type ) : ?>
+					<div class="container banner-inner">
+						<div class="banner-content">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'heading',
+									't'  => 'h1',
+									'tc' => 'banner-heading a-up',
+								)
+							);
+							?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'copy',
+									't'  => 'div',
+									'tc' => 'banner-copy a-up a-delay-1',
+								)
+							);
+							?>
+						</div>
+						<div class="banner-person bg-stretch">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-image',
+								array(
+									'v'     => 'person_avatar',
+									'is'    => false,
+									'v2x'   => false,
+									'is_2x' => false,
+									'w'     => 'div',
+									'wc'    => 'banner-person__image',
+								)
+							);
+							?>
+							<div class="banner-person__info">
+								<?php
+								get_template_part_args(
+									'templates/content-modules-text',
+									array(
+										'v'  => 'person_name',
+										't'  => 'h4',
+										'tc' => 'banner-person__name text-green a-up',
+									)
+								);
+								?>
+								<?php
+								get_template_part_args(
+									'templates/content-modules-text',
+									array(
+										'v'  => 'person_role',
+										't'  => 'h4',
+										'tc' => 'banner-person__role a-up',
+									)
+								);
+								?>
+							</div>
+						</div>
+					</div>
 				<?php else : ?>
 					<div class="container-fluid">
 						<div class="banner-video bg-stretch">
@@ -242,17 +305,25 @@ if ( have_rows( 'modules' ) ) :
 		<?php elseif ( 'services' == get_row_layout() ) : ?>
 			<section class="service-banner" id="<?php echo esc_attr( $id ); ?>">
 				<?php
-				get_template_part_args(
-					'templates/content-modules-image',
-					array(
-						'v'     => 'image',
-						'is'    => false,
-						'v2x'   => false,
-						'is_2x' => false,
-						'c'     => 'service-banner__bg h1 a-up',
-					)
-				);
-				?>
+				$banner_lottie = get_sub_field( 'lottie' );
+				if ( $banner_lottie ) :
+					?>
+					<div 
+						class="service-banner__bg lottie-play" 
+						id="service-banner__bg"
+						data-name="service-banner"></div>
+					<script>
+						var animation = bodymovin.loadAnimation({
+							// animationData: { /* ... */ },
+							container: document.getElementById('service-banner__bg'), // required
+							path: '<?php echo esc_url( $banner_lottie ); ?>', // required
+							renderer: 'svg', // required
+							loop: false, // optional
+							autoplay: false, // optional,
+							name: 'service-banner' // optional,
+						});
+					</script>
+				<?php endif; ?>
 				<div class="container">
 					<?php
 					get_template_part_args(
@@ -265,6 +336,7 @@ if ( have_rows( 'modules' ) ) :
 					);
 					?>
 				</div>
+				<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
 			</section>
 			<section class="service-content">
 				<div class="container">
@@ -283,19 +355,13 @@ if ( have_rows( 'modules' ) ) :
 						<?php
 						while ( have_rows( 'items' ) ) :
 							the_row();
+							$lottie = get_sub_field( 'lottie' );
 							?>
 							<div class="service-item a-up a-delay-<?php echo esc_attr( get_row_index() ); ?>">
-								<?php
-								get_template_part_args(
-									'templates/content-modules-image',
-									array(
-										'v'     => 'image',
-										'is'    => false,
-										'v2x'   => false,
-										'is_2x' => false,
-									)
-								);
-								?>
+								<div class="service-item__lottie lottie-play" 
+									id="service-item--<?php echo esc_attr( get_row_index() ); ?>"
+									data-name="service-item--<?php echo esc_attr( get_row_index() ); ?>">
+								</div>
 								<?php
 								get_template_part_args(
 									'templates/content-modules-cta',
@@ -306,6 +372,17 @@ if ( have_rows( 'modules' ) ) :
 									)
 								);
 								?>
+								<script>
+									var animation = bodymovin.loadAnimation({
+										// animationData: { /* ... */ },
+										container: document.getElementById('service-item--<?php echo esc_attr( get_row_index() ); ?>'), // required
+										path: '<?php echo esc_url( $lottie ); ?>', // required
+										renderer: 'svg', // required
+										loop: false, // optional
+										autoplay: false, // optional,
+										name: 'service-item--<?php echo esc_attr( get_row_index() ); ?>' // optional,
+									});
+								</script>
 							</div>
 						<?php endwhile; ?> 
 					</div>
@@ -540,6 +617,7 @@ if ( have_rows( 'modules' ) ) :
 								setup_postdata( $post );
 								get_template_part( 'templates/loop', 'sector' );
 							endforeach;
+							wp_reset_postdata();
 							?>
 						</div>
 					<?php endif; ?>
@@ -987,6 +1065,113 @@ if ( have_rows( 'modules' ) ) :
 							<?php endwhile; ?>
 						</div>
 					<?php endif; ?>
+				</div>
+			</section>
+		<?php elseif ( 'works' == get_row_layout() ) : ?>
+			<section class="work-grid" id="<?php echo esc_attr( $id ); ?>">
+				<div class="container">
+					<?php
+					get_template_part_args(
+						'templates/content-modules-text',
+						array(
+							'v'  => 'heading',
+							't'  => 'h2',
+							'tc' => 'section-heading a-up',
+						)
+					);
+					?>
+					<?php
+					if ( 'default' === $color_theme ) :
+						$btn_color = 'green';
+					else :
+						$btn_color = $color_theme;
+					endif;
+					get_template_part_args(
+						'templates/content-modules-cta',
+						array(
+							'v' => 'cta',
+							'c' => 'btn btn-' . $btn_color . ' a-up a-delay-1',
+						)
+					);
+					?>
+				</div>
+				<div class="container-fluid">
+					<?php
+					$works = get_sub_field( 'posts' );
+					if ( $works ) :
+						?>
+						<div class="works">
+							<?php
+							foreach ( $works as $post ) :
+								setup_postdata( $post );
+								get_template_part( 'templates/loop', 'work-tile' );
+							endforeach;
+							?>
+						</div>
+						<?php
+						wp_reset_postdata();
+						endif;
+					?>
+				</div>
+			</section>
+			<?php
+		elseif ( 'team_slider' == get_row_layout() ) :
+			$category = get_sub_field( 'category' );
+			?>
+			<section 
+				class="team-slider theme--<?php echo esc_attr( $category->slug ); ?>" 
+				id="<?php echo esc_attr( $id ); ?>">
+				<div class="container">
+					<div class="team-slider__header">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h2',
+								'tc' => 'team-slider__heading a-up',
+							)
+						);
+						?>
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'description',
+								't'  => 'p',
+								'tc' => 'team-slider__description text-medium a-up a-delay-1',
+							)
+						);
+						?>
+					</div>
+					<?php
+					$args  = array(
+						'post_type' => 'person',
+						'cat'       => $category->term_id,
+					);
+					$query = new WP_Query( $args );
+					if ( $query->have_posts() ) :
+						?>
+						<div class="team-carousel">
+							<?php
+							while ( $query->have_posts() ) :
+								$query->the_post();
+								?>
+								<div class="team-image bg-stretch" data-id="<?php echo esc_attr( get_the_ID() ); ?>">
+									<?php
+									if ( has_post_thumbnail() ) :
+										the_post_thumbnail();
+									endif;
+									?>
+								</div>
+								<?php
+							endwhile;
+							?>
+						</div>
+						<?php
+					endif;
+					wp_reset_postdata();
+					?>
 				</div>
 			</section>
 			<?php

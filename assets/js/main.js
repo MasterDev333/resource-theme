@@ -117,10 +117,13 @@
       $(document).on('ready', function() {
         self.smoothScrollLinks();
         self.scrollNextSection();
+        self.initHeader();
 
         helper.isElementExist('.circle-content', self.circleContent);
         helper.isElementExist('.image-carousel', self.initImageCarousel);
         helper.isElementExist('.service-blocks', self.initServiceBlocks);
+        helper.isElementExist('.team-carousel', self.initTeamCarousel);
+        helper.isElementExist('.lottie-play', self.initLottiePlay);
       });
       /** * Run on Window Load ** */
       $(window).on('scroll', function() {
@@ -145,7 +148,7 @@
      * Smooth Scroll link
      */
     smoothScrollLinks() {
-      $('a[href^="#"').on('click', function() {
+      $('a[href^="#"').on('click touchstart', function() {
         const target = $(this).attr('href');
         if (target !== '#' && $(target).length > 0) {
           const offset = $(target).offset().top - $('header').outerHeight();
@@ -176,10 +179,21 @@
       });
     },
     /**
+     * Init Header
+     */
+    initHeader() {
+      $('.hamburger').on('click', function() {
+        $(this).toggleClass('active');
+        $('.header-mobile').slideToggle('medium', function() {
+          if ($(this).is(':visible')) $(this).css('display', 'flex');
+        });
+      });
+    },
+    /**
      * Circle Content
      */
     circleContent() {
-      $('.circle').on('click', function() {
+      $('.circle').on('click touchstart', function() {
         const index = $(this).index();
         if ($(this).hasClass('active')) return;
         $('.circle-content__content.active').removeClass('active');
@@ -213,6 +227,36 @@
         dots: false
       };
       helper.mobileSlider($slider, options);
+      helper.windowResize(resource.initServiceBlocks);
+    },
+    /**
+     * Init team carousel
+     */
+    initTeamCarousel() {
+      $('.team-carousel').slick({
+        arrows: true,
+        dots: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        variableWidth: true,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
+      });
+    },
+
+    /**
+     * Play lottie when only visible
+     */
+    initLottiePlay() {
+      jQuery('.lottie-play').viewportChecker({
+        classToAdd: 'is-active',
+        callbackFunction: element => {
+          const name = $(element).attr('data-name');
+          bodymovin.play(name);
+        }
+      });
     }
   };
 

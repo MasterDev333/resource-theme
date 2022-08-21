@@ -214,6 +214,7 @@ function am_add_javascript() {
 		$am_links = array(
 			'https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js',
 			'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js',
 		);
 		foreach ( $am_links as $am_link ) {
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion

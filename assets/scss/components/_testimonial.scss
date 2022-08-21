@@ -55,7 +55,7 @@
     padding: 20px;
     background-color: $green;
     color: $text-color;
-    width: 190px;
+    width: svw(190px);
     @include mq(tablet) {
       position: absolute;
       width: 260px;

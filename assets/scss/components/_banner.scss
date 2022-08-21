@@ -1,7 +1,10 @@
 .banner {
   color: #fff;
   &--home {
-    text-align: center;
+    padding-top: 0;
+    @include mq(tablet, max) {
+      text-align: center;
+    }
   }
   &--video {
     padding: 0;
@@ -53,6 +56,9 @@
       }
     }
   }
+  &--team {
+    padding: 50px 0;
+  }
   &-inner {
     @include when-inside('.banner--home') {
       @include mq(tablet) {
@@ -64,6 +70,13 @@
     }
     @include when-inside('.banner--video') {
       height: 100%;
+    }
+    @include when-inside('.banner--team') {
+      @include mq(tablet) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
   }
   &-image {
@@ -140,6 +153,12 @@
         margin-bottom: 30px;
       }
     }
+    @include when-inside('.banner--team') {
+      margin-bottom: 25px;
+      @include mq(tablet) {
+        margin-bottom: 50px;
+      }
+    }
   }
   &-copy {
     @include when-inside('.banner--home') {
@@ -149,12 +168,21 @@
       }
     }
     @include when-inside('.banner--video') {
-      max-width: 185px;
+      max-width: svw(185px);
       @include mq(tablet) {
         max-width: 685px;
       }
       p {
         @include typography(23px, 20px, 85px, 74px, 700);
+        color: $text-color;
+      }
+    }
+    @include when-inside('.banner--team') {
+      h3 {
+        margin-bottom: 25px;
+      }
+      p {
+        @extend .text-medium;
       }
     }
   }
@@ -193,8 +221,12 @@
     position: absolute;
     top: 0;
     left: var(--gutter);
+    max-width: calc(100% - var(--gutter) * 2);
     @include mq(tablet) {
       left: auto;
+      right: var(--gutter);
+    }
+    @include mq(desktop) {
       right: calc((100vw - var(--max-width))/2);
     }
   }
@@ -231,6 +263,46 @@
           height: 130px;
         }
       }
+    }
+  }
+  .banner-person {
+    position: relative;
+    display: none;
+    @include mq(tablet) {
+      display: block;
+      margin-left: 40px;
+      flex: 0 0 300px;
+    }
+    @include mq(desktop) {
+      margin-left: 60px;
+      flex-basis: 455px;
+    }
+    &__image {
+      display: none;
+      @include mq(tablet) {
+        display: block;
+      }
+      img {
+        @include mq(tablet) {
+          background-color: $green;
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+        }
+        @include mq(desktop) {
+          width: 455px;
+          height: 455px;
+        }
+      }
+    }
+    &__info {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    &__name,
+    &__role {
+      font: 700 15px/1 $f-text;
     }
   }
 }

@@ -10,7 +10,7 @@
 @import 'base/animation', 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
 
 // 4. Layout-related sections
-@import 'layout/header', 'layout/footer';
+@import 'layout/header', 'layout/footer', 'layout/site-loader';
 
 // 5. Components
 @import 'components/button',
@@ -26,6 +26,7 @@
         'components/section-cta',
         'components/services',
         'components/service-blocks',
+        'components/team-slider',
         'components/testimonial',
         'components/upload',
         'components/works',

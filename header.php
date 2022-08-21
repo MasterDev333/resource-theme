@@ -7,12 +7,11 @@
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
-	<link rel="shortcut icon" type="image/png" href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/favicon.png' ); ?>">
-
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+	<div id="site-loader"></div>
 	<div class="page-wrapper">
 		<!-- Header -->
 		<?php
@@ -39,42 +38,44 @@
 							?>
 						</a>
 					<?php endif; ?>
-					<?php
-						wp_nav_menu(
-							array(
-								'theme_location' => 'mainmenu',
-								'menu_class'     => 'header-menu',
-								'container'      => false,
+					<div class="header-mobile">
+						<?php
+							wp_nav_menu(
+								array(
+									'theme_location' => 'mainmenu',
+									'menu_class'     => 'header-menu',
+									'container'      => false,
+								)
 							)
-						)
-						?>
-					<?php if ( have_rows( 'header_ctas', 'options' ) ) : ?>
-						<div class="header-ctas">
-							<?php
-							while ( have_rows( 'header_ctas', 'options' ) ) :
-								the_row();
-								$link = get_sub_field( 'link' );
-								?>
-								<?php if ( $link ) : ?>
-									<a href="<?php echo esc_url( $link['url'] ); ?>" 
-										class="header-cta" 
-										target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>">
-										<?php
-										get_template_part_args(
-											'templates/content-modules-image',
-											array(
-												'v'     => 'image',
-												'is'    => false,
-												'is_2x' => false,
-												'v2x'   => false,
-											)
-										);
-										?>
-									</a>
-								<?php endif; ?>
-							<?php endwhile; ?>
-						</div>
-					<?php endif; ?>
+							?>
+						<?php if ( have_rows( 'header_ctas', 'options' ) ) : ?>
+							<div class="header-ctas">
+								<?php
+								while ( have_rows( 'header_ctas', 'options' ) ) :
+									the_row();
+									$link = get_sub_field( 'link' );
+									?>
+									<?php if ( $link ) : ?>
+										<a href="<?php echo esc_url( $link['url'] ); ?>" 
+											class="header-cta" 
+											target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>">
+											<?php
+											get_template_part_args(
+												'templates/content-modules-image',
+												array(
+													'v'   => 'image',
+													'is'  => false,
+													'is_2x' => false,
+													'v2x' => false,
+												)
+											);
+											?>
+										</a>
+									<?php endif; ?>
+								<?php endwhile; ?>
+							</div>
+						<?php endif; ?>
+					</div>
 					<button class="hamburger">
 						<i class="fa-solid fa-bars"></i>
 					</button>

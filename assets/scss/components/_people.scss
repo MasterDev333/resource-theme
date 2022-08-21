@@ -27,7 +27,9 @@
     }
   }
   .container {
-    --max-width: 235px;
+    @include mq(tablet, max) {
+      --gutter: 42.5px;
+    }
     @include mq(tablet) {
       --max-width: 620px;
     }
@@ -40,11 +42,11 @@
   }
   &-copy {
     margin-bottom: 30px;
-    p {
-      @include mq(tablet, max) {
-        font-family: $f-hairline;
-      }
-    }
+    // p {
+    //   @include mq(tablet, max) {
+    //     font-family: $f-hairline;
+    //   }
+    // }
   }
   &-join {
     @include mq(tablet) {

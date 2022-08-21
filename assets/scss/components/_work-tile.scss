@@ -1,6 +1,6 @@
 .work-tile {
   display: flex;
-  height: 155px;
+  height: svw(155px);
   @include mq(tablet, max) {
     &:nth-child(even) {
       flex-direction: row-reverse;
@@ -38,16 +38,24 @@
     margin-top: 10px;
     color: #fff;
   }
-  &--creative {
-    --theme-color: var(--color-pink);
+  &__link {
+    color: #fff;
+    &:hover {
+      text-decoration: underline;
+    }
   }
-  &--experience {
-    --theme-color: var(--color-cyan);
-  }
-  &--production {
-    --theme-color: var(--color-purple);
-  }
-  &--strategy {
-    --theme-color: var(--color-green);
+  @include when-inside('.theme--default') {
+    &--creative {
+      --theme-color: var(--color-pink);
+    }
+    &--experience {
+      --theme-color: var(--color-cyan);
+    }
+    &--production {
+      --theme-color: var(--color-purple);
+    }
+    &--strategy {
+      --theme-color: var(--color-green);
+    }
   }
 }

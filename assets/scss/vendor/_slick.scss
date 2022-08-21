@@ -114,6 +114,7 @@
         width: 50px;
         height: 50px;
         font-size: 18px;
+        &:focus,
         &:hover {
             background-color: $green;
             color: #fff;

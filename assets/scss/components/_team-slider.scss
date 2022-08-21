@@ -1,0 +1,42 @@
+.team-slider {
+  padding: 30px 0;
+  color: #fff;
+  @include mq(tablet) {
+    padding: 60px 0;
+  }
+  &__header {
+    margin-bottom: 30px;
+    @include mq(tablet) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__heading {
+    color: var(--theme-color);
+  }
+  &__description {
+    @include mq(tablet, max) {
+      display: none;
+    }
+  }
+  .slick-list,
+  .slick-track {
+    overflow: visible;
+  }
+}
+.team-carousel {
+  display: flex;
+}
+.team-image {
+  margin: 0 5px;
+  width: 90px;
+  height: 90px;
+  background-color: var(--theme-color);
+  border-radius: 50%;
+  overflow: hidden;
+  @include mq(tablet) {
+    width: 180px;
+    height: 180px;
+  }
+}

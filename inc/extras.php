@@ -43,7 +43,7 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		 */
 		public function add_filters() {
 			add_filter( 'body_class', array( $this, 'body_class' ) );
-			add_filter( 'mime_types', array( $this, 'mime_types' ) );
+			add_filter( 'upload_mimes', array( $this, 'mime_types' ) );
 			// Disable for post types
 			// add_filter('use_block_editor_for_post_type', '__return_false', 10);
 		}
@@ -53,7 +53,7 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		 */
 		public function add_actions() {
 			add_action( 'wp_head', array( $this, 'add_ajax_url' ) );
-			add_action( 'init', array( $this, 'add_categories_to_pages' ) );
+			// add_action( 'init', array( $this, 'add_categories_to_pages' ) );
 			add_action( 'init', array( $this, 'remove_editor_from_post_type' ) );
 			add_action( 'init', array( $this, 'add_category_taxonomy_to_custom_post' ) );
 			add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue_scripts' ) );
@@ -167,13 +167,14 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 
 		}
 		/**
-		 * Enable upload for webp image files
+		 * Enable upload for extra files
 		 *
 		 * @param array $existing_mimes Existing MIMEs
 		 * @return array updated MIMEs
 		 */
 		public function mime_types( $existing_mimes ) {
 			$existing_mimes['webp'] = 'image/webp';
+			$existing_mimes['json'] = 'text/plain';
 			return $existing_mimes;
 		}
 
@@ -240,6 +241,8 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 		public function add_category_taxonomy_to_custom_post() {
 			register_taxonomy_for_object_type( 'category', 'sector' );
 			register_taxonomy_for_object_type( 'category', 'work' );
+			register_taxonomy_for_object_type( 'category', 'job' );
+			register_taxonomy_for_object_type( 'category', 'person' );
 		}
 	}
 

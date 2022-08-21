@@ -36,15 +36,27 @@
   }
   &-item {
     position: relative;
+    &:hover {
+      .service-item__lottie {
+        transform: rotate(360deg);
+      }
+    }
+    &__lottie {
+      transition: transform .3s ease-in-out;
+      will-change: transform;
+    }
     img {
       display: block;
       width: 100%;
     }
     &__link {
       position: absolute;
+      display: flex;
       top: 50%;
       left: 50%;
       width: 100%;
+      height: 100%;
+      align-items: center;
       color: var(--text-color);
       text-align: left;
       transform: translate(-50%, -50%);

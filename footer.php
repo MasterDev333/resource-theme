@@ -3,51 +3,6 @@ global $post;
 $phone = get_field( 'phone', 'options' );
 $email = get_field( 'email', 'options' );
 ?>
-			<!-- Work -->
-			<section class="work-grid">
-				<div class="container">
-					<?php
-					get_template_part_args(
-						'templates/content-modules-text',
-						array(
-							'v'  => 'work_heading',
-							'o'  => 'o',
-							't'  => 'h2',
-							'tc' => 'section-heading a-up',
-						)
-					);
-					?>
-					<?php
-					get_template_part_args(
-						'templates/content-modules-cta',
-						array(
-							'v' => 'work_cta',
-							'o' => 'o',
-							'c' => 'btn btn-green a-up a-delay-1',
-						)
-					);
-					?>
-				</div>
-				<div class="container-fluid">
-					<?php
-					$works = get_field( 'works', 'options' );
-					if ( $works ) :
-						?>
-						<div class="works">
-							<?php
-							foreach ( $works as $post ) :
-								setup_postdata( $post );
-								get_template_part( 'templates/loop', 'work-tile' );
-							endforeach;
-							?>
-						</div>
-						<?php
-						wp_reset_postdata();
-						endif;
-					?>
-				</div>
-			</section><!-- /Work -->
-
 			<!-- Client Upload -->
 			<section class="client-upload">
 				<div class="container">
@@ -135,5 +90,16 @@ $email = get_field( 'email', 'options' );
 		</footer><!-- /Footer -->
 	</div>
 <?php wp_footer(); ?>
+<script>
+	var animation = bodymovin.loadAnimation({
+		// animationData: { /* ... */ },
+		container: document.getElementById('site-loader'), // required
+		path: '<?php echo esc_url( get_template_directory_uri() . '/assets/lottie/loader.json' ); ?>', // required
+		renderer: 'svg', // required
+		loop: false, // optional
+		autoplay: true, // optional
+		name: "Page Load Animation", // optional
+	});
+</script>
 </body>
 </html>
