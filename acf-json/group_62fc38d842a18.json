@@ -53,7 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url"
+            "return_format": "array"
         }
     ],
     "location": [
@@ -74,5 +74,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1660696858
+    "modified": 1661274042
 }

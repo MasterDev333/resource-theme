@@ -10,12 +10,14 @@ function am_login_logo_url() {
 	return esc_url( home_url( '/' ) );
 }
 
-// Add Gogole Map API
-
-// function am_acf_google_map_key() {
-// acf_update_setting('google_api_key', 'AIzaSyC7sM9aEtND4xIBlMICYkk8fOUMRvt-Tqc');
-// }
-// add_action('acf/init', 'am_acf_google_map_key');
+/**
+ * Add Gogole Map API
+ */
+function my_acf_google_map_api( $api ){
+    $api['key'] = 'AIzaSyA_e0qnfLbhfe2NxBJrSWVmkM1oWBptzlw';
+    return $api;
+}
+add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 /**
  * Retina 2x plugin supprt: get URL

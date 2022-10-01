@@ -84,6 +84,20 @@ $email = get_field( 'email', 'options' );
 								</a>
 							</div>
 						<?php endif; ?>
+						<?php if ( have_rows( 'social_links', 'options' ) ) : ?>
+							<div class="footer-socials">
+								<?php
+								while ( have_rows( 'social_links', 'options' ) ) :
+									the_row();
+									$icon = get_sub_field( 'icon' );
+									$link = get_sub_field( 'link' );
+									?>
+									<a href="<?php echo esc_url( $link ); ?>" class="footer-social" target="_blank">
+										<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>">
+									</a>
+								<?php endwhile; ?>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

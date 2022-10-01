@@ -32,7 +32,7 @@
     blockquote {
       margin: 20px 0;
       padding: 20px;
-      width: 190px;
+      width: svw(190px);
       height: 190px;
       z-index: 1;
       @include mq(tablet) {
@@ -62,7 +62,7 @@
         @include mq(tablet) {
           padding: 20px;
           top: 40px;
-          left: 528px;
+          left: 550px;
           width: 260px;
           height: 260px;
         }

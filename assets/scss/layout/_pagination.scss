@@ -1,0 +1,44 @@
+.pagination {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  @include mq(tablet) {
+    margin-top: 60px;
+    margin-left: auto;
+    max-width: calc((100% - 100px)/3);
+  }
+}
+.page-numbers {
+  margin: 0 5px;
+  color: $text-color;
+  @include typography(14px, 15px, 17px, 18.7px, 700, $f-narrow);
+  &.prev,
+  &.next {
+    i {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #fff;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &.prev {
+    margin-left: 0;
+    margin-right: auto;
+    i {
+      margin-right: 20px;
+    }
+  }
+  &.next {
+    margin-left: auto;
+    margin-right: 0;
+    i {
+      margin-left: 20px;
+    }
+  }
+  &.current {
+    text-decoration: underline;
+  }
+}

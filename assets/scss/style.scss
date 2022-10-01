@@ -10,25 +10,37 @@
 @import 'base/animation', 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
 
 // 4. Layout-related sections
-@import 'layout/header', 'layout/footer', 'layout/site-loader';
+@import 'layout/header', 'layout/footer', 'layout/site-loader', 'layout/pagination';
 
 // 5. Components
 @import 'components/button',
         'components/banner',
+        'components/blog',
         'components/circle-content',
+        'components/contact',
         'components/content-image',
         'components/icons-grid',
         'components/image-slider',
+        'components/jobs',
+        'components/lds',
+        'components/loop-person',
         'components/loop-sector',
+        'components/loop-job',
         'components/people',
+        'components/post-card',
         'components/resource-info',
         'components/sectors',
+        'components/sector-details',
         'components/section-cta',
         'components/services',
         'components/service-blocks',
+        'components/tabs',
         'components/team-slider',
         'components/testimonial',
         'components/upload',
         'components/works',
         'components/work-tile';
         
+// 6. Pages
+@import 'pages/single-post',
+        'pages/privacy';

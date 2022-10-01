@@ -4,10 +4,15 @@
   @include mq(tablet) {
     padding: 60px 0;
   }
+  &.theme--creative,
+  &.theme--experience {
+    background-color: #2b3d47;
+  }
   &__header {
     margin-bottom: 30px;
     @include mq(tablet) {
       display: flex;
+      margin-bottom: 40px;
       align-items: center;
       justify-content: space-between;
     }
@@ -29,14 +34,52 @@
   display: flex;
 }
 .team-image {
+  position: relative;
   margin: 0 5px;
   width: 90px;
   height: 90px;
-  background-color: var(--theme-color);
-  border-radius: 50%;
-  overflow: hidden;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
   @include mq(tablet) {
     width: 180px;
     height: 180px;
+    &:hover {
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: var(--theme-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    max-width: none;
+    transition: all .3s ease-in-out;
+  }
+  &.active {
+    width: 100px;
+    height: 100px;
+    @include mq(tablet) {
+      width: 220px;
+      height: 220px;
+    }
+    img {
+      width: 160px;
+      height: 160px;
+      @include mq(tablet) {
+        width: 325px;
+        height: 325px;
+      }
+    }
+  }
+}
+.person-info {
+  margin-top: 50px;
+  @include mq(tablet) {
+    margin-top: 60px;
   }
 }

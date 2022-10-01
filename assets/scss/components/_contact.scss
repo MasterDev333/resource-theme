@@ -1,0 +1,113 @@
+.contact {
+  padding: 0;
+  color: #fff;
+  &-heading {
+    padding: 30px 0;
+    @include mq(tablet) {
+      padding: 50px 0;
+    }
+  }
+  .section-cta {
+    color: $text-color;
+    .container {
+      @include mq(tablet, max) {
+        align-items: flex-start;
+      }
+    }
+    &__content {
+      h3 {
+        margin: 20px 0;
+      }
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      h2 {
+        a {
+          @include mq(tablet, max) {
+            font-size: 24px;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+  }
+  &-body {
+    @include mq(tablet) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-gap: 0;
+    }
+    &__title {
+      padding: var(--gutter) 0;
+      color: $green;
+      @include when-inside('.contact-map') {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: var(--gutter);
+        background-color: rgba($dark-blue, 0.87);
+        z-index: 100;
+      }
+    }
+  }
+  &-form {
+    &__form {
+      padding-bottom: 45px;
+      @include mq(tablet) {
+        max-width: 360px;
+      }
+    }
+    .wpcf7-form-control-wrap {
+      display: block;
+    }
+    .form-control {
+      margin-bottom: 10px;
+      padding: 5px 20px;
+      font: 400 18px/27px $f-narrow;
+      letter-spacing: -0.08em;
+      background-color: #fff;
+      border-radius: 14px;
+      border: none;
+      outline: none;
+      width: 100%;
+      &::placeholder {
+        color: $text-color;
+      }
+    }
+    textarea.form-control {
+      padding: 20px;
+    }
+    .wpcf7-not-valid-tip {
+      display: block;
+      margin-bottom: 10px;
+      font: 400 12px/16px $f-narrow;
+      color: #fff;
+    }
+    .wpcf7-list-item {
+      margin-left: 0;
+    }
+    p {
+      @extend .text-small;
+    }
+    .btn {
+      color: $text-color;
+    }
+  }
+  &-map {
+    position: relative;
+    @include mq(tablet, max) {
+      min-height: 338px;
+      margin-left: calc(var(--gutter) * -1);
+      margin-right: calc(var(--gutter) * -1);
+    }
+    .acf-map {
+      width: 100%;
+      height: 360px;
+      @include mq(tablet) {
+        height: 100%;
+      }
+    }
+  }
+}

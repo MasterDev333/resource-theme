@@ -11,7 +11,26 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<div id="site-loader"></div>
+	<!-- Site Loader  -->
+	<div id="site-loader">
+		<script>
+			var animation = bodymovin.loadAnimation({
+				// animationData: { /* ... */ },
+				container: document.getElementById('site-loader'), // required
+				path: '<?php echo esc_url( get_template_directory_uri() . '/assets/lottie/loader.json' ); ?>', // required
+				renderer: 'svg', // required
+				loop: false, // optional
+				autoplay: false, // optional,
+				name: 'service-banner' // optional,
+			});
+		</script>
+	</div><!-- / Site Loader -->
+	<!-- Custom Cursor -->
+	<div class="cursor">
+		<div class="cursor-dot-outline"></div>
+		<div class="cursor-dot"></div>
+	</div>
+	<!-- /Custom Cursor -->
 	<div class="page-wrapper">
 		<!-- Header -->
 		<?php

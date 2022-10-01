@@ -1,0 +1,50 @@
+.loop-job {
+  padding: 30px;
+  background-color: $grey;
+  box-shadow: 5px 5px 0px var(--theme-color);
+
+  @include mq(tablet, max) {
+    margin-bottom: 20px;
+    @include when-inside('.jobs-slider') {
+      margin: 0 10px;
+      width: 245px;
+    }
+  }
+
+  @include mq(tablet) {
+    padding: 50px;
+  }
+
+  &__category {
+    margin-bottom: 5px;
+    color: var(--theme-color);
+  }
+
+  &__title {
+    margin-bottom: 15px;
+    @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+
+    @include mq(tablet) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__price {
+    margin-bottom: 20px;
+    font: 400 18px/27px $f-narrow;
+  }
+
+  &__details {
+    margin-bottom: 20px;
+    @extend .text-small;
+    @include when-inside('.jobs--all') {
+      @include mq(tablet, max) {
+        display: none;
+      }
+    }
+  }
+
+  .btn {
+    color: $text-color;
+  }
+}

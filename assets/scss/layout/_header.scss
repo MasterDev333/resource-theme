@@ -11,8 +11,9 @@
   z-index: 100;
   transition: background .3s ease-in-out;
   @include adminbar-offset;
+  --max-width: 1400px;
   @include mq(tablet) {
-    padding: 20px 0;
+    padding: 0;
   }
   &--sticky {
     background-color: $dark-blue;
@@ -55,15 +56,31 @@
     list-style: none;
     @include mq(desktop, max) {
       flex: 0 0 50%;
+      max-width: 50%;
+      // &:only-child {
+      //   flex: 0 0 100%;
+      // }
     }
     @include mq(desktop) {
       margin-left: auto;
       display: flex;
       align-items: center;
     }
+    > .menu-item {
+      transition: background .3s ease-in-out;
+      will-change: background;
+      > a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include mq(desktop) {
+          height: 100px;
+        }
+      }
+    }
     .menu-item {
       @include mq(desktop) {
-        padding: 0 10px;
+        padding: 0 20px;
       }
       a {
         @include mq(desktop, max) {
@@ -82,9 +99,7 @@
     }
     > .menu-item  {
       &:hover {
-        > a::before {
-          background-color: rgba($green, 0.8);
-        }
+        background-color: rgba($green, 0.8);
         .sub-menu {
           @include element-show;
         }
@@ -105,10 +120,19 @@
           }
         }
       }
-      &.current-menu-item > a,
-      &.current-menu-ancestor > a {
-        @include mq(desktop) {
-          color: $green;
+      &.current-menu-item,
+      &.current-menu-ancestor {
+        > a {
+          @include mq(desktop) {
+            color: $green;
+          }
+        }
+        &:hover {
+          > a {
+            @include mq(desktop) {
+              color: $dark-blue;
+            }
+          }
         }
       }
       &.current-menu-ancestor {
@@ -146,7 +170,7 @@
       }
       @include mq(desktop) {
         top: 100%;
-        margin-left: -10px;
+        margin-left: -20px;
       }
       .menu-item {
         padding: 0;

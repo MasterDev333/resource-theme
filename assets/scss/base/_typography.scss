@@ -3,12 +3,12 @@
  */
 h1,
 .h1 {
-    @include typography(58px, 52px, 85px, 75px, 700);
+    @include typography(58px, 62px, 85px, 85px, 900);
     letter-spacing: -0.02em
 }
 h2,
 .h2 {
-    @include typography(36px, 32px, 60px, 52px, 700);
+    @include typography(36px, 32px, 60px, 62px, 900);
     letter-spacing: -0.02em;
 }
 h3,
@@ -16,9 +16,13 @@ h3,
     @include typography(15px, 18px, 32px, 32px, 700, $f-narrow);
     letter-spacing: -0.01em;
 }
+.h3-large {
+    @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+    letter-spacing: -0.01em;
+}
 h4,
-.h4 {
-    @include typography(15px, 18px, 15px, 14px, 700);
+.h4 { 
+    @include typography(15px, 18px, 15px, 18px, 900);
     letter-spacing: -0.02em;
 }
 p,

@@ -1,0 +1,60 @@
+.post-card {
+  padding: 20px 30px;
+  background-color: #fff;
+  box-shadow: 5px 5px 0px $green;
+  @include mq(tablet) {
+    padding: 25px;
+  }
+  &:not(:last-child) {
+    @include mq(tablet, max) {
+      margin-bottom: 20px;
+    }
+  }
+  &__info {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__image {
+    margin-bottom: 30px;
+    height: 100px;
+    @include when-inside('.post-card--large') {
+      height: 135px;
+    }
+    @include mq(tablet) {
+      height: 190px;
+      @include when-inside('.post-card--large') {
+        height: 420px;
+      }
+    }
+  }
+  &__title {
+    margin-bottom: 20px;
+    @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+    @include when-inside('.post-card--large') {
+      margin-bottom: 40px;
+      @extend .h2;
+    }
+  }
+  &__excerpt {
+    margin-bottom: 20px;
+  }
+  &__content {
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 1em;
+    }
+    blockquote {
+      p {
+        @extend .text-large;
+      }
+    }
+    p {
+      margin-bottom: 1em;
+      @extend .text-medium;
+    }
+  }
+  &__cta {
+    text-align: right;
+  }
+}

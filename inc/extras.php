@@ -61,6 +61,11 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			if ( class_exists( 'ACF' ) ) {
 				add_action( 'acf/init', array( $this, 'acf_init' ) );
 			}
+			// Ajax Functions
+			add_action( 'wp_ajax_ajax_person_info', array( $this, 'ajax_person_info' ) );
+			add_action( 'wp_ajax_nopriv_ajax_person_info', array( $this, 'ajax_person_info' ) );
+			add_action( 'wp_ajax_ajax_posts', array( $this, 'ajax_posts' ) );
+			add_action( 'wp_ajax_nopriv_ajax_posts', array( $this, 'ajax_posts' ) );
 		}
 
 		/**
@@ -77,6 +82,7 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			// Image Sizes
 			add_image_size( 'sector-grid', 350, 200, true );
 			add_image_size( 'work-grid', 465, 225, true );
+			add_image_size( 'post-card', 310, 180, true );
 		}
 
 		/**
@@ -244,8 +250,85 @@ if ( ! class_exists( 'Theme_Extra' ) ) {
 			register_taxonomy_for_object_type( 'category', 'job' );
 			register_taxonomy_for_object_type( 'category', 'person' );
 		}
-	}
 
+		/**
+		 * Load person CPT information via ajax
+		 */
+		public function ajax_person_info() {
+			$args  = array(
+				'post_type'   => 'person',
+				'post_status' => 'publish',
+				// phpcs:disable WordPress.Security.NonceVerification.Missing
+				'p'           => $_POST['id'],
+			);
+			$query = new WP_Query( $args );
+			if ( $query->have_posts() ) :
+				ob_start();
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					get_template_part( 'templates/loop', 'person' );
+				endwhile;
+			endif;
+			wp_reset_postdata();
+			$res         = new stdClass();
+			$res->output = ob_get_clean();
+			echo wp_json_encode( $res );
+			die;
+		}
+
+		/**
+		 * Load custom post types via ajax
+		 */
+		public function ajax_posts() {
+			$type           = $_POST['type'] ?: 'post';
+			$paged          = $_POST['paged'] ? (int) $_POST['paged'] : 0;
+			$posts_per_page = $_POST['posts_per_page'] ? (int) $_POST['posts_per_page'] : 6;
+
+			$args = array(
+				'post_type'      => $type,
+				'post_status'    => 'publish',
+				'posts_per_page' => $posts_per_page,
+				'paged'          => $paged,
+			);
+			if ( $_POST['cat'] ) :
+				$args['cat'] = $_POST['cat'];
+			endif;
+			$query = new WP_Query( $args );
+			if ( $query->have_posts() ) :
+				ob_start();
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					get_template_part( 'templates/loop', $type );
+				endwhile;
+			else :
+				?>
+			<div class="no-results">No posts found.</div>
+				<?php
+			endif;
+			$res             = new stdClass();
+			$res->output     = ob_get_clean();
+			$res->paged      = $paged;
+			$res->pagination = paginate_links(
+				array(
+					'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+					'total'        => $query->max_num_pages,
+					'current'      => max( 1, $paged ),
+					'format'       => '?paged=%#%',
+					'show_all'     => false,
+					'type'         => 'plain',
+					'end_size'     => 1,
+					'mid_size'     => 2,
+					'prev_text'    => '<i class="fas fa-chevron-left"></i> back',
+					'next_text'    => 'next <i class="fas fa-chevron-right"></i>',
+					'add_args'     => false,
+					'add_fragment' => '',
+				)
+			);
+			wp_reset_postdata();
+			echo wp_json_encode( $res );
+			die;
+		}
+	}
 	$extra = new Theme_Extra();
 	$extra->init();
 }
@@ -305,3 +388,4 @@ function get_template_part_args( $file, $template_args = array(), $cache_args = 
 	}
 	echo $data;
 }
+

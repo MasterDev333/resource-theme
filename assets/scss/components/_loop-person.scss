@@ -1,0 +1,32 @@
+.loop-person {
+  display: flex;
+  flex-direction: column-reverse;
+  @include mq(tablet) {
+    flex-direction: row;
+    max-width: 725px;
+
+  }
+  &__right {
+    margin-bottom: 20px;
+    @include mq(tablet) {
+      margin-left: 30px;
+      margin-bottom: 0;
+      flex: 0 0 225px;
+      text-align: right;
+    }
+  }
+  &__bio {
+    @include mq(tablet) {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+  &__title {
+    color: var(--theme-color);
+    @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+  }
+  &__role {
+    margin-bottom: 20px;
+    @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+  }
+}

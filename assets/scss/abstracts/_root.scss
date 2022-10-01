@@ -12,19 +12,32 @@
     --color-green: #59ff96;
     --color-grey: #e1e4e1;
 }
+
+.theme--default {
+    --theme-color: #59ff96;
+}
 .theme--strategy,
 .theme--cyan {
+    --theme-color-opacity: rgba(0, 235, 235, 0.4);
     --theme-color: #00ebeb;
 }
 .theme--creative,
 .theme--pink {
+    --theme-color-opacity: rgba(255, 0, 255, 0.4);
     --theme-color: #ff00ff;
 }
 .theme--production,
 .theme--yellow {
+    --theme-color-opacity: rgba(255, 191, 0, 0.4);
     --theme-color: #ffbf00;
 }
 .theme--experience,
 .theme--purple {
+    --theme-color-opacity: rgba(125, 99, 255, 0.4);
     --theme-color: #7d63ff;
+}
+.theme--all,
+.theme--blue {
+    --theme-color-opacity: rgba(36, 74, 87, 0.4);
+    --theme-color: #244a57;
 }

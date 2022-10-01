@@ -1,5 +1,5 @@
 <?php $category = get_the_category(); ?>
-<article class="work-tile work-tile--<?php echo esc_attr( $category[0]->slug ); ?>">
+<article class="work-tile work-tile--<?php echo esc_attr( $category[0]->slug ); ?> a-up">
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="work-tile__img bg-stretch">
 			<?php the_post_thumbnail( 'work-grid' ); ?>

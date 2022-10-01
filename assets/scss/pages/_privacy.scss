@@ -1,0 +1,186 @@
+.privacy {
+  padding-top: 30px;
+  padding-bottom: 0;
+  background-color: #fff;
+  @include mq(tablet) {
+    padding: 0;
+    background-color: $grey;
+  }
+  .container {
+    @include mq(tablet) {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+  &-sidebar {
+    @include mq(tablet) {
+      position: sticky;
+      padding: 50px 0;
+      top: 150px;
+      flex: 0 0 250px;
+    }
+    @include mq(desktop) {
+      flex: 0 0 366px;
+    }
+  }
+  &-title {
+    margin-bottom: 20px;
+    @include typography(36px, 40px, 60px, 64px, 700);
+  }
+  &-link {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+    font: 400 19px/22.8px $f-narrow;
+    &:hover {
+      color: $green;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 0px;
+      border-bottom: 2px solid $green;
+      transform: scaleX(0);
+      transform-origin: bottom left;
+      transition: transform .3s ease-in-out;
+      will-change: transform;
+    }
+    &.active {
+      font-weight: 700;
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+  &-file {
+    display: flex;
+    margin: 0 calc(var(--gutter) * -1);
+    @include mq(tablet) {
+      margin: 30px 0 0;
+      display: block;
+    }
+    &__heading {
+      display: flex;
+      padding: 10px var(--gutter);
+      align-items: center;
+      justify-content: center;
+      background-color: $green;
+      color: $text-color;
+      flex: 0 0 50%;
+      @include mq(tablet) {
+        padding: 30px 50px;
+      }
+    }
+    &__content {
+      background-color: #fff;
+      padding: 10px var(--gutter);
+      @include mq(tablet) {
+        padding: 20px 40px;
+      }
+    }
+    &__desc {
+      margin-bottom: 20px;
+    }
+  }
+  &-content {
+    margin-bottom: 40px;
+    @include mq(tablet) {
+      position: relative;
+      margin-bottom: 0;
+      margin-left: 40px;
+      padding: 40px;
+      background-color: #fff;
+      order: 1;
+      // max-height: calc(100vh - 110px);
+      // overflow: auto;
+      &::before,
+      &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(180deg, $grey, transparent);
+      }
+      &::before {
+        top: 0;
+      }
+      &::after {
+        bottom: 0;
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &-block {
+    @include mq(tablet, max) {
+      border-top: 2px solid $green;
+      &:last-child {
+        border-bottom: 2px solid $green;
+      }
+    }
+    @include mq(tablet) {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid $green;
+    }
+    &:last-child {
+      @include mq(tablet) {
+        margin-bottom: 50px;
+      }
+    }
+    &__heading {
+      @include typography(20px, 20px, 32px, 32px, 700, $f-narrow);
+      @include mq(tablet, max) {
+        position: relative;
+        padding: 10px 40px 10px 0;
+        &::after {
+          position: absolute;
+          content: "\f054";
+          top: 50%;
+          right: 10px;
+          width: 14px;
+          height: 20px;
+          transform: translateY(-50%) rotate(90deg);
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
+          display: var(--fa-display,inline-block);
+          font-style: normal;
+          font-variant: normal;
+          line-height: 1;
+          text-rendering: auto;
+          font-family: "Font Awesome 6 Free";
+          font-weight: 900;
+          color: $green;
+          transition: transform .3s ease-in-out;
+          will-change: transition;
+        }
+        &.active::after {
+          transform: translateY(-50%) rotate(270deg);
+        }
+      }
+      @include mq(tablet) {
+        margin-bottom: 20px;
+      }
+    }
+    &__content {
+      @extend .text-small;
+      @include mq(tablet, max) {
+        display: none;
+      }
+      p {
+        margin-bottom: 1em;
+        @extend .text-small;
+      }
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 1em;
+      }
+    }
+  }
+}

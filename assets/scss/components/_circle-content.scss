@@ -38,7 +38,7 @@
 
   &__title {
     position: relative;
-    z-index: 2;
+    z-index: 4;
     text-align: center;
     pointer-events: none;
     @include typography(100px, 100px, 190px, 200px, 700);

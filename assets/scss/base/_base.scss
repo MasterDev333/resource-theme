@@ -15,6 +15,7 @@ body {
   color: $text-color;
   overflow-x: hidden;
   background-color: var(--bg-color);
+  // cursor: none !important;
   @include custom-scrollbar(3px, $green);
 }
 
@@ -45,6 +46,7 @@ img {
  * Basic styles for links
  */
 a {
+  color: inherit;
   text-decoration: none;
   transition: all .3s ease-in-out;
 }
@@ -103,7 +105,7 @@ section {
   font: 700 15px/20px $f-text;
   cursor: pointer;
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 5;
   @include mq_mobile_landscape() {
     display: none;
   }
@@ -143,4 +145,42 @@ section {
 }
 .bg-white {
   background-color: #fff;
+}
+
+
+// Custom cursor
+html,
+body {
+    &,
+    * {
+        cursor: none !important;        
+    }
+}
+
+.cursor-dot,
+.cursor-dot-outline {
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease-in-out,
+                transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.cursor-dot {
+    $size: 16px;
+    width: $size;
+    height: $size;
+    background-color: $green;
+}
+
+.cursor-dot-outline {
+    $size: 40px;
+    width: $size;
+    height: $size;
+    background-color: rgba($green, 0.5);
 }

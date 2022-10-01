@@ -1,0 +1,72 @@
+.jobs {
+  &-header {
+    display: flex;
+    margin-bottom: 25px;
+    justify-content: space-between;
+    @include mq(tablet, max) {
+      @include when-inside('.jobs--all') {
+        display: block;
+      }
+    }
+    @include mq(tablet) {
+      margin-bottom: 30px;
+      align-items: center;
+    }
+    .btn {
+      margin-left: 10px;
+      color: $text-color;
+      flex-shrink: 0;
+    }
+  }
+  &-grid {
+    @include mq(tablet) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-gap: 50px;
+    }
+    @include mq(desktop-wide) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  &-slider {
+    @include mq(tablet, max) {
+      margin-left: calc(var(--gutter) * -1);
+      margin-right: calc(var(--gutter) * -1);
+      padding-left: var(--gutter);
+    }
+    .slick-list {
+      overflow: visible;
+    }
+    .slick-track {
+      padding: 10px 0;
+      overflow: visible;
+    }
+  }
+  &-filters {
+    @include mq(tablet, max) {
+      @include when-inside('.jobs--all') {
+        margin-top: 20px;
+      }
+    }
+  }
+  .btn-job-filter {
+    margin: 5px;
+    padding: 15px 30px;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid var(--theme-color);
+    color: $text-color;
+    font: 700 12px/14px $f-narrow;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    @include mq(tablet) {
+      margin: 0 10px;
+    }
+    &:hover,
+    &.active {
+      background-color: var(--theme-color);
+      color: #fff;
+    }
+  }
+}

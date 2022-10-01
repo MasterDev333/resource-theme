@@ -1,0 +1,36 @@
+.sector-details {
+  padding: 20px 0 0;
+  color: #fff;
+  @include mq(tablet) {
+    padding-top: 50px;
+  }
+  &__info {
+    @include mq(tablet) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__heading {
+    @include typography(45px, 50px, 85px, 90px, 900);
+    span {
+      color: var(--theme-color);
+    } 
+  }
+  &__logos {
+    display: none;
+    @include mq(tablet) {
+      display: flex;
+      margin: 0 -10px;
+      align-items: center;
+    }
+  }
+  &__logo {
+    @include mq(tablet) {
+      margin: 0 10px;
+    }
+  }
+  &__images {
+    padding: 50px 0 0;
+  }
+}

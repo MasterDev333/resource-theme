@@ -1,6 +1,9 @@
 .sectors {
   color: #fff;
   text-align: center;
+  &--all {
+    padding-bottom: 0;
+  }
   &-heading {
     margin-bottom: 30px;
     @include mq(tablet) {
@@ -21,6 +24,15 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     @include mq(desktop) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    @include when-inside('.sectors--all') {
+      grid-template-columns: 1fr;
+      @include mq(tablet) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @include mq(desktop) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
   }
 }

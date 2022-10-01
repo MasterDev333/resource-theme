@@ -303,43 +303,18 @@ if ( have_rows( 'modules' ) ) :
 				<?php endif; ?>
 			</section>
 		<?php elseif ( 'services' == get_row_layout() ) : ?>
-			<section class="service-banner" id="<?php echo esc_attr( $id ); ?>">
-				<?php
-				$banner_lottie = get_sub_field( 'lottie' );
-				if ( $banner_lottie ) :
-					?>
-					<div 
-						class="service-banner__bg lottie-play" 
-						id="service-banner__bg"
-						data-name="service-banner"></div>
-					<script>
-						var animation = bodymovin.loadAnimation({
-							// animationData: { /* ... */ },
-							container: document.getElementById('service-banner__bg'), // required
-							path: '<?php echo esc_url( $banner_lottie ); ?>', // required
-							renderer: 'svg', // required
-							loop: false, // optional
-							autoplay: false, // optional,
-							name: 'service-banner' // optional,
-						});
-					</script>
-				<?php endif; ?>
-				<div class="container">
-					<?php
-					get_template_part_args(
-						'templates/content-modules-text',
-						array(
-							'v'  => 'heading',
-							't'  => 'h2',
-							'tc' => 'service-banner__heading a-up',
-						)
-					);
-					?>
-				</div>
-				<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
-			</section>
 			<section class="service-content">
 				<div class="container">
+					<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h2',
+								'tc' => 'service-banner__heading a-up',
+							)
+						);
+						?>
 					<?php
 					get_template_part_args(
 						'templates/content-modules-text',
@@ -403,53 +378,29 @@ if ( have_rows( 'modules' ) ) :
 			<section class="people" id="<?php echo esc_attr( $id ); ?>">
 				<div class="container-fluid">
 					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'left_image',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__left d-md-only',
-						)
-					);
-					?>
+					$images = get_sub_field( 'left_part' );
+					if ( $images ) :
+						?>
+					<div class="people-left">
+						<?php foreach ( $images as $key=>$image ) : ?>
+							<div class="people-img bg-stretch">
+								<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
+							</div>
+						<?php endforeach; ?>
+					</div>
+					<?php endif; ?>
 					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'left_image_mobile',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__left d-sm-only',
-						)
-					);
-					?>
-					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'right_image',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__right d-md-only',
-						)
-					);
-					?>
-					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'right_image_mobile',
-							'is'    => false,
-							'is_2x' => false,
-							'v2x'   => false,
-							'c'     => 'people-bg__right d-sm-only',
-						)
-					);
-					?>
+					$images = get_sub_field( 'right_part' );
+					if ( $images ) :
+						?>
+					<div class="people-right">
+						<?php foreach ( $images as $image ) : ?>
+							<div class="people-img bg-stretch">
+								<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
+							</div>
+						<?php endforeach; ?>
+					</div>
+					<?php endif; ?>
 					<div class="container">
 						<?php
 						get_template_part_args(
@@ -501,6 +452,7 @@ if ( have_rows( 'modules' ) ) :
 			$bg_color   = get_sub_field( 'background_color' );
 			$text_color = get_sub_field( 'text_color' );
 			$style      = get_sub_field( 'style' );
+			$type       = get_sub_field( 'media_type' );
 			?>
 			<section 
 				class="content-image content-image--<?php echo esc_attr( $style ); ?>"
@@ -529,17 +481,38 @@ if ( have_rows( 'modules' ) ) :
 						);
 						?>
 						<?php
-						get_template_part_args(
-							'templates/content-modules-image',
-							array(
-								'v'     => 'image',
-								'is'    => false,
-								'v2x'   => false,
-								'is_2x' => false,
-								'c'     => 'content-image__image a-up',
-							)
-						);
-						?>
+						if ( 'lottie' == $type ) :
+							$lottie = get_sub_field( 'lottie' );
+							?>
+							<div class="content-image__image lottie-play" 
+								id="content-image-<?php echo esc_attr( get_row_index() ); ?>"
+								data-name="content-image-<?php echo esc_attr( get_row_index() ); ?>">
+								<script>
+									var animation = bodymovin.loadAnimation({
+										// animationData: { /* ... */ },
+										container: document.getElementById('content-image-<?php echo esc_attr( get_row_index() ); ?>'), // required
+										path: '<?php echo esc_url( $lottie ); ?>', // required
+										renderer: 'svg', // required
+										loop: false, // optional
+										autoplay: false, // optional,
+										name: 'content-image-<?php echo esc_attr( get_row_index() ); ?>' // optional,
+									});
+								</script>
+							</div>
+						<?php else : ?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-image',
+								array(
+									'v'     => 'image',
+									'is'    => false,
+									'v2x'   => false,
+									'is_2x' => false,
+									'c'     => 'content-image__image a-up',
+								)
+							);
+							?>
+						<?php endif; ?>
 					<?php else : ?>
 						<div class="content-image__left">
 							<?php
@@ -562,19 +535,38 @@ if ( have_rows( 'modules' ) ) :
 							);
 							?>
 						</div>
-						<div class="content-image__right">
+						<div class="content-image__right lottie-play"
+							id="content-image-<?php echo esc_attr( get_row_index() ); ?>"
+							data-name="content-image-<?php echo esc_attr( get_row_index() ); ?>">
 							<?php
-							get_template_part_args(
-								'templates/content-modules-image',
-								array(
-									'v'     => 'image',
-									'is'    => false,
-									'v2x'   => false,
-									'is_2x' => false,
-									'c'     => 'a-up',
-								)
-							);
-							?>
+							if ( 'lottie' == $type ) :
+								$lottie = get_sub_field( 'lottie' );
+								?>
+								<script>
+									var animation = bodymovin.loadAnimation({
+										// animationData: { /* ... */ },
+										container: document.getElementById('content-image-<?php echo esc_attr( get_row_index() ); ?>'), // required
+										path: '<?php echo esc_url( $lottie ); ?>', // required
+										renderer: 'svg', // required
+										loop: false, // optional
+										autoplay: false, // optional,
+										name: 'content-image-<?php echo esc_attr( get_row_index() ); ?>' // optional,
+									});
+								</script>
+							<?php else : ?>
+								<?php
+								get_template_part_args(
+									'templates/content-modules-image',
+									array(
+										'v'     => 'image',
+										'is'    => false,
+										'v2x'   => false,
+										'is_2x' => false,
+										'c'     => 'a-up',
+									)
+								);
+								?>
+							<?php endif; ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -585,8 +577,9 @@ if ( have_rows( 'modules' ) ) :
 			<?php
 		elseif ( 'sectors' == get_row_layout() ) :
 			$sectors = get_sub_field( 'sectors' );
+			$type    = get_sub_field( 'type' );
 			?>
-			<section class="sectors" id="<?php echo esc_attr( $id ); ?>">
+			<section class="sectors sectors--<?php echo esc_attr( $type ); ?>" id="<?php echo esc_attr( $id ); ?>">
 				<div class="container-fluid">
 					<div class="container">
 						<?php
@@ -610,19 +603,71 @@ if ( have_rows( 'modules' ) ) :
 						);
 						?>
 					</div>
-					<?php if ( $sectors ) : ?>
+					<?php if ( 'all' == $type ) : ?>
+						<?php
+						$args  = array(
+							'post_type'      => 'sector',
+							'posts_per_page' => -1,
+						);
+						$query = new WP_Query( $args );
+						if ( $query->have_posts() ) :
+							?>
 						<div class="sectors-grid">
 							<?php
-							foreach ( $sectors as $post ) :
-								setup_postdata( $post );
+							while ( $query->have_posts() ) :
+								$query->the_post();
 								get_template_part( 'templates/loop', 'sector' );
-							endforeach;
-							wp_reset_postdata();
+							endwhile;
 							?>
+							<article class="loop-sector loop-sector--contact">
+								<?php
+								get_template_part_args(
+									'templates/content-modules-text',
+									array(
+										'v'  => 'contact_heading',
+										't'  => 'h2',
+										'tc' => 'loop-sector--contact__heading',
+									)
+								);
+								get_template_part_args(
+									'templates/content-modules-text',
+									array(
+										'v'  => 'contact_content',
+										't'  => 'p',
+										'tc' => 'loop-sector--contact__content',
+									)
+								);
+								get_template_part_args(
+									'templates/content-modules-cta',
+									array(
+										'v' => 'contact_cta',
+										'c' => 'btn btn-white loop-sector--contact__cta',
+									)
+								);
+								?>
+							</article>
 						</div>
+							<?php
+						endif;
+						wp_reset_postdata();
+						?>
+					<?php else : ?>
+						<?php if ( $sectors ) : ?>
+							<div class="sectors-grid">
+								<?php
+								foreach ( $sectors as $post ) :
+									setup_postdata( $post );
+									get_template_part( 'templates/loop', 'sector' );
+								endforeach;
+								wp_reset_postdata();
+								?>
+							</div>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
-				<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
+				<?php if ( 'all' != $type ) : ?>
+					<?php get_template_part( 'templates/content-modules', 'scroll' ); ?>
+				<?php endif; ?>
 			</section>
 		<?php elseif ( 'testimonial' == get_row_layout() ) : ?>
 			<section class="testimonial" id="<?php echo esc_attr( $id ); ?>">
@@ -800,44 +845,79 @@ if ( have_rows( 'modules' ) ) :
 			</section>
 			<?php
 		elseif ( 'cta' == get_row_layout() ) :
-			$color = get_sub_field( 'color' );
+			$color  = get_sub_field( 'color' );
+			$type   = get_sub_field( 'type' ) ?: 'global';
+			$images = get_field( 'cta_images', 'options' );
 			?>
-			<section class="section-cta bg-<?php echo esc_attr( $color ); ?>" id="<?php echo esc_attr( $id ); ?>">
+			<section class="section-cta section-cta--<?php echo esc_attr( $type ); ?> bg-<?php echo esc_attr( $color ); ?>" id="<?php echo esc_attr( $id ); ?>">
 				<div class="container">
-					<div class="section-cta__image bg-stretch">
-						<?php
-						get_template_part_args(
-							'templates/content-modules-image',
-							array(
-								'v'     => 'image',
-								'is'    => false,
-								'v2x'   => false,
-								'is_2x' => false,
-							)
-						);
-						?>
-					</div>
-					<div class="section-cta__content">
-						<?php
-						get_template_part_args(
-							'templates/content-modules-text',
-							array(
-								'v'  => 'heading',
-								't'  => 'h2',
-								'tc' => 'section-cta__heading a-up',
-							)
-						);
-						?>
-						<?php
-						get_template_part_args(
-							'templates/content-modules-cta',
-							array(
-								'v' => 'cta',
-								'c' => 'btn btn-white a-up',
-							)
-						);
-						?>
-					</div>
+					<?php if ( 'custom' == $type ) : ?>
+						<div class="section-cta__image bg-stretch">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-image',
+								array(
+									'v'     => 'image',
+									'is'    => false,
+									'v2x'   => false,
+									'is_2x' => false,
+								)
+							);
+							?>
+						</div>
+						<div class="section-cta__content">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'heading',
+									't'  => 'h2',
+									'tc' => 'section-cta__heading a-up',
+								)
+							);
+							?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-cta',
+								array(
+									'v' => 'cta',
+									'c' => 'btn btn-white a-up',
+								)
+							);
+							?>
+						</div>
+					<?php else : ?>
+						<?php if ( $images ) : ?>
+						<div class="section-cta__image bg-stretch">
+							<?php foreach ( $images as $image ) : ?>
+								<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
+							<?php endforeach; ?>
+						</div>
+						<?php endif; ?>
+						<div class="section-cta__content">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'cta_heading',
+									'o'  => 'o',
+									't'  => 'h2',
+									'tc' => 'section-cta__heading a-up',
+								)
+							);
+							?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-cta',
+								array(
+									'v' => 'cta_link',
+									'o' => 'o',
+									'c' => 'btn btn-white a-up',
+								)
+							);
+							?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</section>
 		<?php elseif ( 'resource_info' == get_row_layout() ) : ?>
@@ -1168,10 +1248,476 @@ if ( have_rows( 'modules' ) ) :
 							endwhile;
 							?>
 						</div>
+						<div class="person-info">
+							<!-- Dynamic person info goes here -->
+						</div>
 						<?php
 					endif;
 					wp_reset_postdata();
 					?>
+				</div>
+			</section>
+			<?php
+		elseif ( 'jobs_grid' == get_row_layout() ) :
+			$type = get_sub_field( 'type' );
+			?>
+			<section class="jobs jobs--<?php echo esc_attr( $type ); ?>  bg-white" id="<?php echo esc_attr( $id ); ?>">
+				<div class="container">
+					<div class="jobs-header">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h2',
+								'tc' => 'a-up',
+							)
+						);
+						?>
+						<?php
+						if ( 'all' == $type ) :
+							$categories = get_categories();
+							?>
+							<div class="jobs-filters a-up a-delay-1">
+								<button class="btn-job-filter theme--all active" data-filter="-1"><?php echo esc_html__( 'All', 'am' ); ?></button>
+								<?php foreach ( $categories as $category ) : ?>
+									<button class="btn-job-filter theme--<?php echo esc_attr( $category->slug ); ?>" data-filter="<?php echo esc_attr( $category->term_id ); ?>">
+										<?php echo esc_html( $category->name ); ?>
+									</button>
+								<?php endforeach; ?>
+							</div>
+						<?php else : ?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-cta',
+								array(
+									'v' => 'cta',
+									'c' => 'btn btn-green a-up a-delay-1',
+								)
+							);
+							?>
+						<?php endif; ?>
+					</div>
+					<?php
+					if ( 'all' == $type ) :
+						$paged = get_query_var( 'paged' ) ?: 1;
+						$args  = array(
+							'post_type'      => 'job',
+							'posts_per_page' => 9,
+							'paged'          => $paged,
+						);
+						$query = new WP_Query( $args );
+						if ( $query->have_posts() ) :
+							?>
+						<div class="jobs-grid cpt-grid a-up a-delay-2" 
+							data-type="job"
+							data-paged="1"
+							data-filter="-1"
+							data-posts-per-page="9">
+							<?php
+							while ( $query->have_posts() ) :
+								$query->the_post();
+								get_template_part( 'templates/loop', 'job' );
+							endwhile;
+							?>
+						</div>
+							<?php
+						endif;
+						if ( $query->max_num_pages > 1 ) :
+							?>
+							<div class="pagination a-up a-delay-2">
+								<?php
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo paginate_links(
+									array(
+										'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+										'total'        => $query->max_num_pages,
+										'current'      => max( 1, $paged ),
+										'format'       => '?paged=%#%',
+										'show_all'     => false,
+										'type'         => 'plain',
+										'end_size'     => 1,
+										'mid_size'     => 2,
+										'prev_text'    => '<i class="fas fa-chevron-left"></i> back',
+										'next_text'    => 'next <i class="fas fa-chevron-right"></i>',
+										'add_args'     => false,
+										'add_fragment' => '',
+									)
+								);
+								?>
+							</div>
+							<?php
+						endif;
+						wp_reset_postdata();
+					else :
+						$jobs = get_sub_field( 'jobs' );
+						if ( $jobs ) :
+							?>
+						<div class="jobs-grid jobs-slider a-up a-delay-2">
+							<?php
+							foreach ( $jobs as $post ) :
+								setup_postdata( $post );
+								get_template_part( 'templates/loop', 'job' );
+							endforeach;
+							?>
+						</div>
+							<?php
+						endif;
+						wp_reset_postdata();
+						?>
+					<?php endif; ?>
+				</div>
+			</section>
+		<?php elseif ( 'sector_details' == get_row_layout() ) : ?>
+			<section class="sector-details" id="<?php echo esc_attr( $id ); ?>">
+				<div class="sector-details__info container">
+					<?php
+					get_template_part_args(
+						'templates/content-modules-text',
+						array(
+							'v'  => 'heading',
+							't'  => 'h1',
+							'tc' => 'sector-details__heading a-up',
+						)
+					);
+					?>
+					<?php if ( have_rows( 'partners' ) ) : ?>
+						<div class="sector-details__logos a-up a-delay-1">
+							<?php
+							while ( have_rows( 'partners' ) ) :
+								the_row();
+								?>
+								<a href="javascript:;" class="sector-details__logo">
+									<?php
+									get_template_part_args(
+										'templates/content-modules-image',
+										array(
+											'v'     => 'icon',
+											'is'    => false,
+											'is_2x' => false,
+											'v2x'   => false,
+										)
+									);
+									?>
+								</a>
+							<?php endwhile; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+				<?php if ( have_rows( 'partners' ) ) : ?>
+				<div class="sector-details__images image-slider" id="<?php echo esc_attr( $id ); ?>">
+					<div class="container">
+						<div class="image-carousel">
+							<?php
+							while ( have_rows( 'partners' ) ) :
+								the_row();
+								?>
+								<?php
+									get_template_part_args(
+										'templates/content-modules-image',
+										array(
+											'v'     => 'image',
+											'is'    => false,
+											'is_2x' => false,
+											'v2x'   => false,
+										)
+									);
+								?>
+							<?php endwhile; ?>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+			</section>
+		<?php elseif ( 'contact' == get_row_layout() ) :
+			$images = get_field( 'cta_images', 'options' );
+			?>
+			<section class="contact" id="<?php echo esc_attr( $id ); ?>">
+				<div class="container">
+					<?php
+					get_template_part_args(
+						'templates/content-modules-text',
+						array(
+							'v'  => 'title',
+							't'  => 'h1',
+							'tc' => 'contact-heading a-up',
+						)
+					);
+					?>
+				</div>
+				<div class="section-cta bg-green">
+					<div class="container">
+						<?php if ( $images ) : ?>
+							<div class="section-cta__image bg-stretch">
+								<?php foreach ( $images as $image ) : ?>
+									<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+						<div class="section-cta__content">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'content',
+									't'  => 'div',
+									'tc' => 'section-cta__content a-up',
+								)
+							);
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="contact-body container">
+					<div class="contact-form">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'contact_heading',
+								't'  => 'h2',
+								'tc' => 'contact-body__title a-up',
+							)
+						);
+						?>
+						<?php
+						$form = get_sub_field( 'contact_form' );
+						if ( $form ) :
+							?>
+							<div class="contact-form__form">
+								<?php echo do_shortcode( $form ); ?>
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="contact-map">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'map_heading',
+								't'  => 'h2',
+								'tc' => 'contact-body__title a-up',
+							)
+						);
+						?>
+						<?php
+						$location = get_sub_field( 'location' );
+						if ( $location ) :
+							?>
+							<div class="acf-map" data-zoom="16">
+								<div class="marker" 
+									data-lat="<?php echo esc_attr( $location['lat'] ); ?>" 
+									data-lng="<?php echo esc_attr( $location['lng'] ); ?>"></div>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+			</section>
+			<?php
+		elseif ( 'blog' == get_row_layout() ) :
+			$type = get_sub_field( 'type' );
+			?>
+			<section class="blog bg-grey blog--<?php echo esc_attr( $type ); ?>" id="<?php echo esc_attr( $id ); ?>">
+				<div class="container">
+					<div class="blog-header">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h1',
+								'tc' => 'blog-heading a-up',
+							)
+						);
+						?>
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'content',
+								't'  => 'p',
+								'tc' => 'd-md-only blog-copy a-up a-delay-1',
+							)
+						);
+						?>
+					</div>
+					<?php
+					if ( 'custom' == $type ) :
+						$posts = get_sub_field( 'posts' );
+						if ( $posts ) :
+							?>
+						<div class="blog-grid cpt-grid a-up a-delay-2">
+							<?php
+							foreach ( $posts as $post ) :
+								setup_postdata( $post );
+								get_template_part( 'templates/loop', 'post' );
+							endforeach;
+							?>
+						</div>
+							<?php
+							endif;
+							wp_reset_postdata();
+						?>
+					<?php else : ?>
+						<?php
+							$paged = get_query_var( 'paged' ) ?: 1;
+						if ( 'recent' == $type ) :
+							$posts_per_page = 3;
+							else :
+								$posts_per_page = 6;
+							endif;
+							$args  = array(
+								'post_type'      => 'post',
+								'posts_per_page' => $posts_per_page,
+								'paged'          => $paged,
+							);
+							$query = new WP_Query( $args );
+							if ( $query->have_posts() ) :
+								?>
+								<div class="blog-grid cpt-grid a-up a-delay-2">
+									<?php
+									while ( $query->have_posts() ) :
+										$query->the_post();
+										get_template_part( 'templates/loop', 'post' );
+									endwhile;
+									?>
+								</div>
+								<?php
+							endif;
+							if ( $query->max_num_pages > 1 && 'all' == $type ) :
+								?>
+								<div class="pagination a-up a-delay-2">
+									<?php
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									echo paginate_links(
+										array(
+											'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+											'total'        => $query->max_num_pages,
+											'current'      => max( 1, $paged ),
+											'format'       => '?paged=%#%',
+											'show_all'     => false,
+											'type'         => 'plain',
+											'end_size'     => 1,
+											'mid_size'     => 2,
+											'prev_text'    => '<i class="fas fa-chevron-left"></i> back',
+											'next_text'    => 'next <i class="fas fa-chevron-right"></i>',
+											'add_args'     => false,
+											'add_fragment' => '',
+										)
+									);
+									?>
+								</div>
+								<?php
+							endif;
+							wp_reset_postdata();
+							?>
+					<?php endif; ?>
+				</div>
+			</section>
+			<?php
+		elseif ( 'tabs' == get_row_layout() ) :
+			?>
+			<section class="tabs">
+				<div class="container">
+					<?php
+					get_template_part_args(
+						'templates/content-modules-text',
+						array(
+							'v'  => 'heading',
+							't'  => 'h1',
+							'tc' => 'tabs-heading',
+						)
+					);
+					?>
+					<?php if ( have_rows( 'tabs' ) ) : ?>
+						<div class="tab">
+							<div class="tab-links">
+								<?php
+								while ( have_rows( 'tabs' ) ) :
+									the_row();
+									$link = get_sub_field( 'anchor_link' );
+									?>
+									<a href="#tab-<?php echo esc_attr( get_row_index() ); ?>"
+										class="tab-link<?php echo get_row_index() == 1 ? ' active' : ''; ?>">
+										<?php echo esc_html( $link ); ?>
+									</a>
+								<?php endwhile; ?>
+							</div>
+							<div class="tab-contents">
+								<?php
+								while ( have_rows( 'tabs' ) ) :
+									the_row();
+									$link = get_sub_field( 'anchor_link' );
+									?>
+									<div class="tab-content<?php echo get_row_index() == 1 ? ' active' : ''; ?>" id="tab-<?php echo esc_attr( get_row_index() ); ?>">
+										<?php
+										get_template_part_args(
+											'templates/content-modules-text',
+											array(
+												'v'  => 'content',
+												't'  => 'div',
+												'tc' => 'tab-content__content',
+											)
+										);
+										?>
+										<?php
+										get_template_part_args(
+											'templates/content-modules-image',
+											array(
+												'v'     => 'image',
+												'is'    => false,
+												'v2x'   => false,
+												'is_2x' => false,
+												'w'     => 'div',
+												'wc'    => 'tab-content__image bg-stretch',
+											)
+										);
+										?>
+									</div>
+								<?php endwhile; ?>
+							</div>
+						</div>
+					<?php endif; ?>
+					<div class="files">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'document_heading',
+								't'  => 'h3',
+								'tc' => 'h3-large files-heading',
+							)
+						);
+						?>
+						<?php
+						if ( have_rows( 'files' ) ) :
+							while ( have_rows( 'files' ) ) :
+								the_row();
+								$file = get_sub_field( 'file' );
+								?>
+								<div class="file">
+									<?php
+									get_template_part_args(
+										'templates/content-modules-text',
+										array(
+											'v'  => 'description',
+											't'  => 'h4',
+											'tc' => 'file-desc',
+										)
+									);
+									?>
+									<?php if ( $file ) : ?>
+									<a href="<?php echo esc_url( $file ); ?>" class="btn btn-green btn-green--dark btn-download" download="">
+										download
+										<i class="fas fa-download"></i>
+									</a>
+									<?php endif; ?>
+								</div>
+								<?php
+							endwhile;
+						endif;
+						?>
+					</div>
 				</div>
 			</section>
 			<?php

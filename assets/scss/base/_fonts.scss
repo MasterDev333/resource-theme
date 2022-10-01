@@ -2,43 +2,7 @@
 // This file contains all @font-face declarations, if any.
 // -----------------------------------------------------------------------------
 @font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-Bold.woff2') format('woff2'),
-        font('MarkPro-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-BoldItalic.woff2') format('woff2'),
-        font('MarkPro-BoldItalic.woff') format('woff');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-Black.woff2') format('woff2'),
-        font('MarkPro-Black.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro-Hairline';
-    src: font('MarkPro-Hairline.woff2') format('woff2'),
-        font('MarkPro-Hairline.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro';
+    font-family: 'Mark Pro';
     src: font('MarkPro-Heavy.woff2') format('woff2'),
         font('MarkPro-Heavy.woff') format('woff');
     font-weight: 900;
@@ -47,46 +11,19 @@
 }
 
 @font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-HeavyItalic.woff2') format('woff2'),
-        font('MarkPro-HeavyItalic.woff') format('woff');
-    font-weight: 900;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-MediumItalic.woff2') format('woff2'),
-        font('MarkPro-MediumItalic.woff') format('woff');
-    font-weight: 500;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro-Medium.woff2') format('woff2'),
-        font('MarkPro-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MarkPro-Hairline';
-    src: font('MarkPro-Hairline.woff2') format('woff2'),
-        font('MarkPro-Hairline.woff') format('woff');
+    font-family: 'Mark Pro Narrow';
+    src: font('MarkPro-NarrowBook.woff2') format('woff2'),
+        font('MarkPro-NarrowBook.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'MarkPro';
-    src: font('MarkPro.woff2') format('woff2'),
-        font('MarkPro.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Mark Pro Narrow';
+    src: font('MarkPro-NarrowBold.woff2') format('woff2'),
+        font('MarkPro-NarrowBold.woff') format('woff');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }

@@ -4,4 +4,11 @@
   .slick-track {
     overflow: visible;
   }
+  .slick-slide {
+    height: 310px;
+    object-fit: cover;
+    @include mq(tablet) {
+      height: 485px;
+    }
+  }
 }

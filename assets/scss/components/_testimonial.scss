@@ -1,5 +1,10 @@
 .testimonial {
   color: #fff;
+  @include when-inside('.single-sector') {
+    @include mq(tablet, max) {
+      padding: 25px 0 10px;
+    }
+  }
   &-heading {
     margin-bottom: 30px;
     @include typography(24px, 24px, 36px, 50px, 700, $f-narrow);
@@ -14,6 +19,10 @@
         margin-right: 50px;
         flex: 0 0 440px;
         max-width: 440px;
+        @include when-inside('.single-sector') {
+          flex: 0 0 540px;
+          max-width: 540px;
+        }
       }
     }
     &__right {
@@ -24,6 +33,10 @@
     }
   }
   &-copy {
+    h3 {
+      @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
+      margin-bottom: 1em;
+    }
     p {
       margin-bottom: 1em;
       @extend .text-medium;
@@ -60,7 +73,11 @@
       position: absolute;
       width: 260px;
       left: 490px;
-      z-index: 1
+      z-index: 1;
+      @include when-inside('.single-sector') {
+        bottom: -130px;
+        left: 590px;
+      }
     }
     &__subheading {
       @include typography(8px, 10px, 10px, 10px, 700);

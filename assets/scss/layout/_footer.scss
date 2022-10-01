@@ -36,8 +36,7 @@
         padding: 0 10px;
       }
       a {
-        font: 600 17px/18px $f-text;
-        text-transform: uppercase;
+        font: 700 17px/18px $f-narrow;
         color: #fff;
         &:hover {
           color: $green;
@@ -73,6 +72,27 @@
       color: #fff;
       &:hover {
         color: $green;
+      }
+    }
+  }
+  &-socials {
+    display: flex;
+    margin: 10px -5px 0;
+    align-items: center;
+    @include mq(tablet) {
+      justify-content: flex-end;
+    }
+  }
+  &-social {
+    margin: 0 5px;
+    img {
+      height: 30px;
+      transition: filter .3s ease-in-out;
+      will-change: filter;
+    }
+    &:hover {
+      img {
+        filter: invert(94%) sepia(86%) saturate(731%) hue-rotate(63deg) brightness(103%) contrast(102%);
       }
     }
   }

@@ -230,6 +230,14 @@ function am_add_javascript() {
 	}
 }
 
+function nr_load_scripts() {
+		
+	wp_register_script('googlemaps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA_e0qnfLbhfe2NxBJrSWVmkM1oWBptzlw',null,null,true);  
+	wp_enqueue_script('googlemaps');
+		
+}
+add_action( 'wp_enqueue_scripts', 'nr_load_scripts' );
+
 /**
  * Add CSS scripts
  */
