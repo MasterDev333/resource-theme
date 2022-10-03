@@ -4,7 +4,7 @@ $author_name = get_the_author_meta( 'display_name' );
 <article class="post-card">
 	<div class="post-card__info">
 		<p class="text-small post-card__date"><?php echo get_the_date( 'F d, Y' ); ?></p>
-		<p class="text-small post-card__author"><?php echo esc_html__( 'By' ) . ' ' . esc_html( $author_name ); ?></p>
+		<!-- <p class="text-small post-card__author"><?php echo esc_html__( 'By' ) . ' ' . esc_html( $author_name ); ?></p> -->
 	</div>
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="post-card__image bg-stretch">

@@ -110,7 +110,6 @@ if ( have_rows( 'modules' ) ) :
 									);
 									?>
 								</div>
-								<img class="a-up a-delay-1" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/solutions.png' ); ?>" alt="">
 							</div>
 							<?php
 							get_template_part_args(

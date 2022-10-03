@@ -51,7 +51,7 @@ $author_name = get_the_author_meta( 'display_name' );
 					</div>
 				<?php endif; ?>
 				<div class="post-same">
-					<h3 class="post-sidebar__title"><?php echo esc_html__( 'Same Author' ); ?></h3>
+					<h3 class="post-sidebar__title"><?php echo esc_html__( 'More Articles' ); ?></h3>
 					<?php
 					$authors_posts = get_posts(
 						array(
