@@ -14,10 +14,13 @@
 }
 .service-block {
   position: relative;
+  margin-bottom: 30px;
   padding: 0 30px;
   @include mq(tablet) {
     display: flex;
+    margin-bottom: 0;
     padding: 50px 0;
+    align-items: center;
     &:nth-child(even) {
       flex-direction: row-reverse;
       .service-block__img {
@@ -78,7 +81,7 @@
   &__copy {
     margin-bottom: 30px;
     @include mq(tablet) {
-      margin-bottom: 60px;
+      margin-bottom: 0px;
       flex-grow: 1;
     }
     p {

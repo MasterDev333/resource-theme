@@ -135,7 +135,7 @@
           }
         }
       }
-      &.current-menu-ancestor {
+      &.menu-item-has-children {
         > a {
           position: relative;
           &::after {
@@ -154,6 +154,9 @@
             @include mq(desktop) {
               content: none;
             }
+          }
+          &:hover + .sub-menu {
+            @include element-show;
           }
         }
       }

@@ -263,41 +263,39 @@ if ( have_rows( 'modules' ) ) :
 						</div>
 					</div>
 				<?php else : ?>
-					<div class="container-fluid">
-						<div class="banner-video bg-stretch">
-							<?php
-							get_template_part(
-								'templates/content-modules',
-								'media',
-								array(
-									'image' => $image,
-									'video' => $video,
-								)
-							);
-							?>
-						</div>
-						<div class="container banner-content">
-							<?php
-							get_template_part_args(
-								'templates/content-modules-text',
-								array(
-									'v'  => 'heading',
-									't'  => 'h3',
-									'tc' => 'banner-heading a-up',
-								)
-							);
-							?>
-							<?php
-							get_template_part_args(
-								'templates/content-modules-text',
-								array(
-									'v'  => 'copy',
-									't'  => 'div',
-									'tc' => 'banner-copy a-up a-delay-1',
-								)
-							);
-							?>
-						</div>
+					<div class="banner-video bg-stretch">
+						<?php
+						get_template_part(
+							'templates/content-modules',
+							'media',
+							array(
+								'image' => $image,
+								'video' => $video,
+							)
+						);
+						?>
+					</div>
+					<div class="container banner-content">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h3',
+								'tc' => 'banner-heading a-up',
+							)
+						);
+						?>
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'copy',
+								't'  => 'div',
+								'tc' => 'banner-copy a-up a-delay-1',
+							)
+						);
+						?>
 					</div>
 				<?php endif; ?>
 			</section>
@@ -459,26 +457,28 @@ if ( have_rows( 'modules' ) ) :
 				style="background-color: <?php echo esc_attr( $bg_color ); ?>; color: <?php echo esc_attr( $text_color ); ?>">
 				<div class="container content-image__inner">
 					<?php if ( 'inline' == $style ) : ?>
-						<?php
-						get_template_part_args(
-							'templates/content-modules-text',
-							array(
-								'v'  => 'heading',
-								't'  => 'h3',
-								'tc' => 'content-image__heading a-up',
-							)
-						);
-						?>
-						<?php
-						get_template_part_args(
-							'templates/content-modules-text',
-							array(
-								'v'  => 'copy',
-								't'  => 'div',
-								'tc' => 'content-image__copy a-up a-delay-1',
-							)
-						);
-						?>
+						<div class="content-image__info">
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'heading',
+									't'  => 'h3',
+									'tc' => 'content-image__heading a-up',
+								)
+							);
+							?>
+							<?php
+							get_template_part_args(
+								'templates/content-modules-text',
+								array(
+									'v'  => 'copy',
+									't'  => 'div',
+									'tc' => 'content-image__copy a-up a-delay-1',
+								)
+							);
+							?>
+						</div>
 						<?php
 						if ( 'lottie' == $type ) :
 							$lottie = get_sub_field( 'lottie' );
@@ -919,7 +919,10 @@ if ( have_rows( 'modules' ) ) :
 					<?php endif; ?>
 				</div>
 			</section>
-		<?php elseif ( 'resource_info' == get_row_layout() ) : ?>
+		<?php elseif ( 'resource_info' == get_row_layout() ) :
+			$video = get_sub_field( 'video' );
+			$image = get_sub_field( 'image' );
+			?>
 			<section class="resource-info bg-white" id="<?php echo esc_attr( $id ); ?>">
 				<div class="container">
 					<div class="resource-info__content">
@@ -990,20 +993,11 @@ if ( have_rows( 'modules' ) ) :
 							</div>
 						</div>
 					</div>
-					<?php
-					get_template_part_args(
-						'templates/content-modules-image',
-						array(
-							'v'     => 'image',
-							'is'    => false,
-							'v2x'   => false,
-							'is_2x' => false,
-							'c'     => 'a-up',
-							'w'     => 'div',
-							'wc'    => 'resource-info__image bg-stretch',
-						)
-					);
-					?>
+					<?php if ( $video || $image ) : ?>
+						<div class="resource-info__image bg-stretch">
+							<?php get_template_part( 'templates/content-modules', 'media', array( 'video' => $video, 'image' => $image ) ); ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</section>
 			<?php
@@ -1149,32 +1143,44 @@ if ( have_rows( 'modules' ) ) :
 		<?php elseif ( 'works' == get_row_layout() ) : ?>
 			<section class="work-grid" id="<?php echo esc_attr( $id ); ?>">
 				<div class="container">
+					<div class="work-grid__top">
+						<?php
+						get_template_part_args(
+							'templates/content-modules-text',
+							array(
+								'v'  => 'heading',
+								't'  => 'h2',
+								'tc' => 'section-heading a-up',
+							)
+						);
+						?>
+						<?php
+						if ( 'default' === $color_theme ) :
+							$btn_color = 'green';
+						else :
+							$btn_color = $color_theme;
+						endif;
+						get_template_part_args(
+							'templates/content-modules-cta',
+							array(
+								'v' => 'cta',
+								'c' => 'btn btn-' . $btn_color . ' a-up a-delay-1',
+							)
+						);
+						?>
+					</div>
 					<?php
 					get_template_part_args(
 						'templates/content-modules-text',
 						array(
-							'v'  => 'heading',
-							't'  => 'h2',
-							'tc' => 'section-heading a-up',
-						)
-					);
-					?>
-					<?php
-					if ( 'default' === $color_theme ) :
-						$btn_color = 'green';
-					else :
-						$btn_color = $color_theme;
-					endif;
-					get_template_part_args(
-						'templates/content-modules-cta',
-						array(
-							'v' => 'cta',
-							'c' => 'btn btn-' . $btn_color . ' a-up a-delay-1',
+							'v'  => 'content',
+							't'  => 'p',
+							'tc' => 'section-copy text-medium a-up a-delay-1',
 						)
 					);
 					?>
 				</div>
-				<div class="container-fluid">
+				<!-- <div class="container-fluid"> -->
 					<?php
 					$works = get_sub_field( 'posts' );
 					if ( $works ) :
@@ -1191,7 +1197,7 @@ if ( have_rows( 'modules' ) ) :
 						wp_reset_postdata();
 						endif;
 					?>
-				</div>
+				<!-- </div> -->
 			</section>
 			<?php
 		elseif ( 'team_slider' == get_row_layout() ) :
@@ -1225,8 +1231,9 @@ if ( have_rows( 'modules' ) ) :
 					</div>
 					<?php
 					$args  = array(
-						'post_type' => 'person',
-						'cat'       => $category->term_id,
+						'post_type'      => 'person',
+						'cat'            => $category->term_id,
+						'posts_per_page' => -1,
 					);
 					$query = new WP_Query( $args );
 					if ( $query->have_posts() ) :

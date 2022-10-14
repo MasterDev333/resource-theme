@@ -7,7 +7,7 @@
  */
 html {
   box-sizing: border-box;
-   -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -68,11 +68,13 @@ h5 {
 section {
   position: relative;
   padding: 100px 0;
-  &:not(.work-grid):not(.client-upload) {
+
+  &:not(.work-grid):not(.client-upload):not(.section-cta) {
     @include when-inside('.home') {
       display: flex;
       align-items: center;
       justify-content: center;
+
       @include mq(tablet) {
         min-height: 100vh;
       }
@@ -82,9 +84,11 @@ section {
 
 .main {
   padding-top: 50px;
+
   @include mq(tablet) {
     padding-top: 110px;
   }
+
   @include when-inside('.home') {
     padding-top: 0;
   }
@@ -106,14 +110,17 @@ section {
   cursor: pointer;
   transform: translateX(-50%);
   z-index: 5;
+
   @include mq_mobile_landscape() {
     display: none;
   }
+
   i {
     display: block;
     transition: transform .3s ease-in-out;
     will-change: transform;
   }
+
   &:hover {
     i {
       transform: translateY(5px);
@@ -125,24 +132,31 @@ section {
 .bg-cyan {
   background-color: $cyan;
 }
+
 .bg-yellow {
   background-color: $yellow;
 }
+
 .bg-pink {
   background-color: $pink;
 }
+
 .bg-purple {
   background-color: $purple;
 }
+
 .bg-green {
   background-color: $green;
 }
+
 .bg-grey {
   background-color: $grey;
 }
+
 .bg-dark-blue {
   background-color: $dark-blue;
 }
+
 .bg-white {
   background-color: #fff;
 }
@@ -151,36 +165,43 @@ section {
 // Custom cursor
 html,
 body {
-    &,
-    * {
-        cursor: none !important;        
+
+  &,
+  * {
+    @include mq(tablet) {
+      cursor: none !important;
     }
+  }
 }
 
 .cursor-dot,
 .cursor-dot-outline {
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease-in-out,
-                transform 0.3s ease-in-out;
-    z-index: 1000;
+  @include mq(tablet, max) {
+    display: none;
+  }
+
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease-in-out,
+  transform 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .cursor-dot {
-    $size: 16px;
-    width: $size;
-    height: $size;
-    background-color: $green;
+  $size: 16px;
+  width: $size;
+  height: $size;
+  background-color: $green;
 }
 
 .cursor-dot-outline {
-    $size: 40px;
-    width: $size;
-    height: $size;
-    background-color: rgba($green, 0.5);
+  $size: 40px;
+  width: $size;
+  height: $size;
+  background-color: rgba($green, 0.5);
 }

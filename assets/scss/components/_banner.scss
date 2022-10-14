@@ -11,6 +11,7 @@
     .container-fluid {
       position: relative;
       height: 100%;
+      z-index: 1;
     }
   }
   &--resource {
@@ -166,6 +167,9 @@
       @include mq(tablet) {
         margin-bottom: 50px;
       }
+      p {
+        @include typography(18px, 27px, 24px, 32px, 400, $f-narrow);
+      }
     }
     @include when-inside('.banner--video') {
       max-width: svw(185px);
@@ -284,7 +288,7 @@
       }
       img {
         @include mq(tablet) {
-          background-color: $green;
+          // background-color: $green;
           width: 300px;
           height: 300px;
           border-radius: 50%;
@@ -296,9 +300,8 @@
       }
     }
     &__info {
-      position: absolute;
-      top: 0;
-      left: 0;
+      margin-top: 10px;
+      text-align: center;
     }
     &__name,
     &__role {

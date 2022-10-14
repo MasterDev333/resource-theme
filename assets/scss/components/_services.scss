@@ -32,6 +32,10 @@
     @include mq(tablet) {
       margin-bottom: 50px;
       grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-gap: 40px;
+    }
+    @include mq(desktop-wide) {
+      grid-gap: 50px;
     }
   }
   &-item {
@@ -44,6 +48,7 @@
     &__lottie {
       transition: transform .3s ease-in-out;
       will-change: transform;
+      pointer-events: none;
     }
     img {
       display: block;

@@ -29,4 +29,20 @@
     margin-bottom: 20px;
     @include typography(24px, 24px, 32px, 32px, 700, $f-narrow);
   }
+  &__socials {
+    display: flex;
+    margin-left: -5px;
+    margin-right: -5px;
+    align-items: center;
+    @include mq(tablet) {
+      justify-content: flex-end;
+    }
+  }
+  &__social {
+    margin: 0 5px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }

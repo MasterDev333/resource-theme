@@ -124,7 +124,9 @@
     &:nth-child(1) {
       top: -70px;
       left: 20px;
-
+      @include mq(phablet) {
+        left: 15%;
+      }
       @include mq(tablet) {
         top: -100px;
         left: 0;
@@ -145,7 +147,9 @@
       top: -70px;
       right: 20px;
       z-index: 3;
-
+      @include mq(phablet) {
+        right: 15%;
+      }
       @include mq(tablet) {
         top: -100px;
         right: 0;
@@ -157,8 +161,11 @@
       left: 25%;
       transform: translateX(-50%);
       z-index: 3;
-
+      @include mq(phablet) {
+        left: 35%;
+      }
       @include mq(tablet) {
+        left: 25%;
         bottom: -100px;
       }
     }
@@ -167,8 +174,11 @@
       bottom: -70px;
       left: 75%;
       transform: translateX(-50%);
-
+      @include mq(phablet) {
+        left: 65%;
+      }
       @include mq(tablet) {
+        left: 75%;
         bottom: -100px;
       }
     }

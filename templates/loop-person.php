@@ -23,15 +23,21 @@
 			)
 		);
 		?>
-		<?php
-		get_template_part_args(
-			'templates/content-modules-cta',
-			array(
-				'v' => 'contact',
-				'o' => 'f',
-				'c' => 'btn btn-theme',
-			)
-		);
-		?>
+		<?php if ( have_rows( 'social_links' ) ) : ?>
+			<div class="loop-person__socials">
+				<?php
+				while ( have_rows( 'social_links' ) ) :
+					the_row();
+					$icon = get_sub_field( 'icon' );
+					$link = get_sub_field( 'link' );
+					?>
+					<a href="<?php echo esc_url( $link ); ?>" class="loop-person__social" target="_blank">
+						<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_url( $icon['alt'] ); ?>">						
+					</a>
+					<?php
+				endwhile;
+				?>
+			</div>
+		<?php endif; ?>
 	</div>
 </article>

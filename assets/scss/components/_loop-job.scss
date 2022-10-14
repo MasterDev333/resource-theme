@@ -37,11 +37,6 @@
   &__details {
     margin-bottom: 20px;
     @extend .text-small;
-    @include when-inside('.jobs--all') {
-      @include mq(tablet, max) {
-        display: none;
-      }
-    }
   }
 
   .btn {

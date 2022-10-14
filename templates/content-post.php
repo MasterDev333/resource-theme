@@ -9,7 +9,7 @@ $author_name = get_the_author_meta( 'display_name' );
 			<article class="post-card post-card--large a-up a-delay-1">
 				<div class="post-card__info">
 					<p class="text-small post-card__date"><?php echo get_the_date( 'F d, Y' ); ?></p>
-					<p class="text-small post-card__author"><?php echo esc_html__( 'By' ) . ' ' . esc_html( $author_name ); ?></p>
+					<!-- <p class="text-small post-card__author"><?php echo esc_html__( 'By' ) . ' ' . esc_html( $author_name ); ?></p> -->
 				</div>
 				<?php if ( has_post_thumbnail() ) : ?>
 					<div class="post-card__image bg-stretch">
@@ -51,7 +51,7 @@ $author_name = get_the_author_meta( 'display_name' );
 					</div>
 				<?php endif; ?>
 				<div class="post-same">
-					<h3 class="post-sidebar__title"><?php echo esc_html__( 'More Articles' ); ?></h3>
+					<h3 class="post-sidebar__title"><?php echo esc_html__( 'More articles' ); ?></h3>
 					<?php
 					$authors_posts = get_posts(
 						array(

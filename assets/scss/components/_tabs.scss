@@ -75,12 +75,8 @@
   margin: 40px calc(var(--gutter) * -1) 0;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   @include mq(tablet) {
-    display: flex;
     margin: 80px -5px 0;
-    flex-wrap: wrap;
-  }
-  @include mq(desktop) {
-    flex-wrap: nowrap;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
   &-heading {
     display: flex;

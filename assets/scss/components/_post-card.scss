@@ -53,6 +53,11 @@
       margin-bottom: 1em;
       @extend .text-medium;
     }
+    ul,
+    ol {
+      margin-bottom: 1em;
+      padding-left: 20px;
+    }
   }
   &__cta {
     text-align: right;

@@ -2,7 +2,9 @@
 global $post;
 $phone = get_field( 'phone', 'options' );
 $email = get_field( 'email', 'options' );
+$disable_upload = get_field( 'disable_upload_section' );
 ?>
+			<?php if ( ! $disable_upload && ! is_page_template( 'page-templates/privacy-policy.php' ) ) : ?>
 			<!-- Client Upload -->
 			<section class="client-upload">
 				<div class="container">
@@ -17,15 +19,19 @@ $email = get_field( 'email', 'options' );
 						)
 					);
 					?>
-					<div class="file-upload">
-						<label for="file-upload" class="btn btn-blue">
-							Upload
-							<i class="fas fa-chevron-right"></i>
-						</label>
-						<input type="file" id="file-upload">
-					</div>
+					<?php
+					get_template_part_args(
+						'templates/content-modules-cta',
+						array(
+							'v' => 'upload_cta',
+							'o' => 'o',
+							'c' => 'btn btn-blue',
+						)
+					);
+					?>
 				</div>
 			</section><!-- /Client Upload -->
+			<?php endif; ?>
 		</main><!-- /Main -->
 		<!-- Footer -->
 		<footer class="footer">

@@ -24,12 +24,15 @@
     }
   }
   &-menu {
-    display: none;
+    list-style: none;
+    @include mq(tablet, max) {
+      column-count: 2;
+      column-gap: 10px;
+    }
     @include mq(tablet) {
       margin-left: auto;
       display: flex;
       align-items: center;
-      list-style: none;
     }
     .menu-item {
       @include mq(tablet) {
@@ -65,6 +68,11 @@
       br {
         @include mq(tablet, max) {
           display: none;
+        }
+      }
+      span {
+        @include mq(tablet, max) {
+          display: block;
         }
       }
     }

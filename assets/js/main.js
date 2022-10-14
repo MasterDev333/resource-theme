@@ -123,7 +123,7 @@
         helper.isElementExist('.cursor', self.initCursor);
         helper.isElementExist('.circle-content', self.circleContent);
         helper.isElementExist('.image-carousel', self.initImageCarousel);
-        helper.isElementExist('.service-blocks', self.initServiceBlocks);
+        // helper.isElementExist('.service-blocks', self.initServiceBlocks);
         helper.isElementExist('.team-carousel', self.initTeamCarousel);
         helper.isElementExist('.lottie-play', self.initLottiePlay);
         helper.isElementExist('.cpt-grid', self.initCPTGrid);
@@ -419,7 +419,8 @@
           {
             breakpoint: 769,
             settings: {
-              arrows: false
+              arrows: false,
+              autoplay: true
             }
           }
         ]
@@ -885,6 +886,12 @@
           }
         });
       };
+      // Set max-height for sidebar links
+      function initPrivacyLinks() {
+        $('.privacy-links').css('max-height', ($(window).outerHeight() - $('.privacy-links').offset().top) + 'px');
+      }
+      initPrivacyLinks();
+      helper.windowResize(initPrivacyLinks);
       // Accordion
       if (window.matchMedia('(max-width: 768px)').matches) {
         $('.privacy-block__heading').on('click', function() {

@@ -62,6 +62,7 @@
     }
     &__heading {
       margin-bottom: 10px;
+      @include typography(36px, 32px, 45px, 40px, 700);
     }
     &__content {
       margin-bottom: 10px;
