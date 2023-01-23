@@ -1,4 +1,5 @@
 .people {
+  overflow: hidden;
   text-align: center;
   color: #fff;
   &-bg {
@@ -90,7 +91,7 @@
     }
     @include when-inside('.people-left') {
       &:first-child {
-        top: 50px;
+        top: 100px;
         left: -90px;
         @include mq(tablet) {
           top: -280px;
@@ -98,7 +99,7 @@
         }
       }
       &:nth-child(2) {
-        top: -130px;
+        top: -50px;
         left: -30px;
         animation-direction: reverse;
         animation-duration: 3s;
@@ -116,7 +117,7 @@
         }
       }
       &:nth-child(4) {
-        top: 200px;
+        top: 250px;
         left: -30px;
         animation-direction: reverse;
         animation-duration: 5s;
@@ -128,7 +129,7 @@
     }
     @include when-inside('.people-right') {
       &:first-child {
-        top: -120px;
+        top: -70px;
         right: -30px;
         animation-direction: reverse;
         animation-duration: 3s;
@@ -138,7 +139,7 @@
         }
       }
       &:nth-child(2) {
-        top: 30px;
+        top: 80px;
         right: -80px;
         animation-duration: 5s;
         @include mq(tablet) {
@@ -147,7 +148,7 @@
         }
       }
       &:nth-child(3) {
-        top: 200px;
+        top: 250px;
         right: -40px;
         @include mq(tablet) {
           top: 50px;
