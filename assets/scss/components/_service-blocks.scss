@@ -1,5 +1,6 @@
 .service-blocks {
   color: #fff;
+  overflow-x: hidden;
   &-section {
     padding-top: 0;
     @include mq(tablet) {
