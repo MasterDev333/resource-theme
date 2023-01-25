@@ -1,5 +1,6 @@
 .image-slider {
   padding: 0;
+  overflow-x: hidden;
   .slick-list,
   .slick-track {
     overflow: visible;
