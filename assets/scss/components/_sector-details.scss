@@ -1,6 +1,7 @@
 .sector-details {
   padding: 20px 0 0;
   color: #fff;
+  overflow-x: hidden;
   @include mq(tablet) {
     padding-top: 50px;
   }
